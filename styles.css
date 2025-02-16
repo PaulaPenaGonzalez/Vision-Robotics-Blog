@@ -1,56 +1,91 @@
-/* Estilos generales */
+/* 🎨 Estilos Generales */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
-    color: #333;
-}
-
-/* Estilo del encabezado */
-header {
-    background-color: #333;
+    background: linear-gradient(to right, #6a11cb, #2575fc); /* Degradado morado-azul */
     color: white;
-    text-align: center;
-    padding: 20px;
 }
 
-/* Contenedor principal */
+/* 📌 Encabezado */
+header {
+    background: rgba(0, 0, 0, 0.6); /* Fondo semitransparente */
+    padding: 20px;
+    text-align: center;
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+header h1 {
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background: linear-gradient(to right, #ff9a9e, #fad0c4);
+    -webkit-background-clip: text;
+    color: transparent; /* Efecto de texto degradado */
+}
+
+header p {
+    font-size: 1.2rem;
+    opacity: 0.8;
+}
+
+/* 🏠 Contenedor Principal */
 .container {
     width: 80%;
-    margin: auto;
+    max-width: 900px;
+    margin: 40px auto;
     padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px); /* Efecto de desenfoque */
+    border-radius: 15px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
 }
 
-/* Estilos para enlaces */
+/* 🔗 Enlaces */
 a {
-    color: #007bff;
+    color: #ff9a9e;
     text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
 }
 
 a:hover {
+    color: #fad0c4;
     text-decoration: underline;
 }
 
-/* Estilo de los títulos */
-h1, h2 {
+/* 📜 Estilo de los títulos */
+h2 {
     color: #ffffff;
+    text-align: center;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    padding-bottom: 5px;
 }
 
-/* Estilo de los párrafos */
-p {
-    line-height: 1.6;
+/* 🦄 Botones */
+button {
+    background: linear-gradient(to right, #ff758c, #ff7eb3);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-/* Estilos del pie de página */
+button:hover {
+    transform: scale(1.05);
+    background: linear-gradient(to right, #ff7eb3, #ff758c);
+}
+
+/* 🚀 Pie de Página */
 footer {
     text-align: center;
-    padding: 10px;
-    background-color: #333;
-    color: white;
-    margin-top: 20px;
+    padding: 15px;
+    margin-top: 30px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
 }
 
