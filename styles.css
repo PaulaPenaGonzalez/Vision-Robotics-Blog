@@ -3,31 +3,29 @@ body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
-    background: linear-gradient(to right, #6a11cb, #2575fc); /* Degradado morado-azul */
-    color: white;
+    background-color: #fefefe; /* Blanco muy claro */
+    color: #555; /* Texto gris suave */
 }
 
 /* 📌 Encabezado */
 header {
-    background: rgba(0, 0, 0, 0.6); /* Fondo semitransparente */
+    background: linear-gradient(to right, #f8bbd0, #e1bee7); /* Degradado rosa pastel a lavanda */
     padding: 20px;
     text-align: center;
     border-radius: 0 0 20px 20px;
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
 }
 
 header h1 {
     font-size: 2.5rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    background: linear-gradient(to right, #ff9a9e, #fad0c4);
-    -webkit-background-clip: text;
-    color: transparent; /* Efecto de texto degradado */
+    color: white; /* Texto en blanco */
+    letter-spacing: 1px;
 }
 
 header p {
     font-size: 1.2rem;
-    opacity: 0.8;
+    opacity: 0.9;
+    color: white;
 }
 
 /* 🏠 Contenedor Principal */
@@ -36,36 +34,36 @@ header p {
     max-width: 900px;
     margin: 40px auto;
     padding: 20px;
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px); /* Efecto de desenfoque */
+    background: rgba(255, 255, 255, 0.8); /* Fondo blanco con transparencia */
     border-radius: 15px;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 /* 🔗 Enlaces */
 a {
-    color: #ff9a9e;
+    color: #64b5f6; /* Azul pastel */
     text-decoration: none;
     font-weight: bold;
     transition: 0.3s;
 }
 
 a:hover {
-    color: #fad0c4;
+    color: #42a5f5; /* Azul pastel más oscuro */
     text-decoration: underline;
 }
 
 /* 📜 Estilo de los títulos */
 h2 {
-    color: #ffffff;
+    background: linear-gradient(to right, #ffccbc, #ffe0b2); /* Degradado durazno pastel */
+    color: #333;
     text-align: center;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
-    padding-bottom: 5px;
+    padding: 10px;
+    border-radius: 10px;
 }
 
 /* 🦄 Botones */
 button {
-    background: linear-gradient(to right, #ff758c, #ff7eb3);
+    background: linear-gradient(to right, #f48fb1, #ce93d8);
     color: white;
     border: none;
     padding: 10px 20px;
@@ -77,7 +75,7 @@ button {
 
 button:hover {
     transform: scale(1.05);
-    background: linear-gradient(to right, #ff7eb3, #ff758c);
+    background: linear-gradient(to right, #ce93d8, #f48fb1);
 }
 
 /* 🚀 Pie de Página */
@@ -85,7 +83,8 @@ footer {
     text-align: center;
     padding: 15px;
     margin-top: 30px;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.05);
+    color: #555;
     border-radius: 15px;
 }
 
