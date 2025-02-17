@@ -31,10 +31,7 @@
 
     <!-- Contenido del primer post -->
     <div id="post1" class="post-container" style="display: none;">
-    	<h2>Seguimiento de una Línea Roja en Unibotics con un Coche de Fórmula 1</h2>
-
-    	<h3>Introducción</h3>
-    	<p>En este proyecto de Unibotics, se ha trabajado en el control de un coche de Fórmula 1 que sigue una línea roja en un circuito. Para lograrlo, se han explorado diferentes enfoques de detección y control, desde decisiones discretas hasta el uso de un controlador PID.</p>
+    	<h2>Objetivo: Seguimiento de una Línea Roja en Unibotics con un Coche de Fórmula 1</h2>
 
     	<h3>1️⃣ Enfoque Inicial: Decisiones Discretas</h3>
     	<p>El primer enfoque se basó en establecer una velocidad constante y detectar la posición de la línea roja en la imagen a cada instante:</p>
@@ -77,21 +74,6 @@ import cv2.cv2 as cv2
     		</code></pre>
 	</ol>
     	
-
-<p>Al ejecar el código en Unibotics, encontramos errores con OpenCV. Para solucionarlo:</p>
-    	<pre>
-        	<code>
-import cv2
-print(cv2.__version__)
-        	</code>
-    	</pre>
-    	<p>Si el error persiste, probar con:</p>
-    	<pre>
-        	<code>
-pip install opencv-python-headless
-        	</code>
-    	</pre>
-
     	<h4>⚙️ Variables Globales en Python</h4>
     	<p>Para manejar el historial de errores en el controlador PID:</p>
     	<ul>
