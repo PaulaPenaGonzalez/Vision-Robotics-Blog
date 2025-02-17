@@ -8,18 +8,36 @@
 </head>
 <body>
     <header>
-        <h1>Proyecto 1: Detección de Bordes</h1>
+        <h1>Control de un F1 🏎️ </h1>
         <p>Progreso y avances de este proyecto.</p>
     </header>
 
     <div class="container">
-        <h2>Publicaciones</h2>
-        <ul>
-            <li><a href="../posts/proyecto1-post1.html">Primer post: Introducción</a></li>
-            <li><a href="../posts/proyecto1-post2.html">Segundo post: Resultados iniciales</a></li>
-        </ul>
+         <h2>Publicaciones</h2>
+   	 <button onclick="mostrarPost(1)">📌 Primer post: Introducción</button>
+    	 <button onclick="mostrarPost(2)">🔬 Segundo post: Resultados</button>
     </div>
 
+    <!-- Contenido del primer post -->
+    <div id="post1" class="post-container">
+    	<h2>Seguimiento de una Línea Roja en Unibotics con un Coche de Fórmula 1</h2>
+    	<p>En este proyecto, se ha trabajado en el control de un coche de Fórmula 1 que sigue una línea roja...</p>
+    </div>
+
+    <!-- Contenido del segundo post (inicialmente oculto) -->
+    <div id="post2" class="post-container" style="display: none;">
+    	<h2>Resultados Iniciales</h2>
+    	<p>En esta sección se presentan los primeros resultados obtenidos...</p>
+    </div>
+
+    <script>
+    	function mostrarPost(num) {
+        	document.getElementById('post1').style.display = (num === 1) ? 'block' : 'none';
+        	document.getElementById('post2').style.display = (num === 2) ? 'block' : 'none';
+    	}
+    </script>
+
+    <!-- 📌 Footer al final de la página -->
     <footer>
         <p><a href="../index.html">Volver a la página principal</a></p>
     </footer>
