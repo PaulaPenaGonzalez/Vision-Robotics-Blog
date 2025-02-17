@@ -25,30 +25,30 @@
 
     <div class="container">
          <h2>Publicaciones</h2>
-   	 <button onclick="mostrarPost(1)">📌 Primer post: Introducción</button>
-    	 <button onclick="mostrarPost(2)">🔬 Segundo post: Resultados</button>
+   	 <button onclick="mostrarPost(1)"> Primer post: Día 1</button>
+    	 <button onclick="mostrarPost(2)"> Segundo post: Día 2</button>
     </div>
 
     <!-- Contenido del primer post -->
     <div id="post1" class="post-container" style="display: none;">
     	<h2>Seguimiento de una Línea Roja en Unibotics con un Coche de Fórmula 1</h2>
 
-    	<h3>📌 Introducción</h3>
+    	<h3>Introducción</h3>
     	<p>En este proyecto de Unibotics, se ha trabajado en el control de un coche de Fórmula 1 que sigue una línea roja en un circuito. Para lograrlo, se han explorado diferentes enfoques de detección y control, desde decisiones discretas hasta el uso de un controlador PID.</p>
 
     	<h3>1️⃣ Enfoque Inicial: Decisiones Discretas</h3>
     	<p>El primer enfoque se basó en establecer una velocidad constante y detectar la posición de la línea roja en la imagen a cada instante:</p>
     	<ul>
-        	<li>🔴 Si la línea está a la izquierda, girar a la izquierda.</li>
-        	<li>🔵 Si la línea está a la derecha, girar a la derecha.</li>
-        	<li>⚪ Si la línea está centrada, avanzar recto.</li>
-        	<li>❓ Si no se detecta la línea, seguir la última dirección o realizar búsqueda oscilante.</li>
+        	<li> Si la línea está a la izquierda, girar a la izquierda.</li>
+        	<li> Si la línea está a la derecha, girar a la derecha.</li>
+        	<li> Si la línea está centrada, avanzar recto.</li>
+        	<li> Si no se detecta la línea, seguir la última dirección o realizar búsqueda oscilante.</li>
     	</ul>
 
     	<h3>2️⃣ Mejorando la Precisión con un Controlador PID</h3>
     	<p>Para mejorar el seguimiento, se integró un <strong>controlador PID</strong> para ajustar el giro del coche de manera progresiva.</p>
 
-    	<h4>📌 Concepto del PID</h4>
+    	<h4>📝 Concepto del PID</h4>
     	<ul>
         	<li><strong>Componente Proporcional (P):</strong> Ajusta la dirección según la desviación respecto a la línea.</li>
         	<li><strong>Componente Integral (I):</strong> Compensa errores acumulados en el tiempo.</li>
@@ -57,7 +57,28 @@
 
     	<h3>3️⃣ Problemas Encontrados y Soluciones</h3>
     	<h4>🛠️ Errores con OpenCV (`cv2`)</h4>
-    	<p>Al ejecutar el código en Unibotics, encontramos errores con OpenCV. Para solucionarlo:</p>
+	<p>Al ejecutar el código en Unibotics, se encontraron errores indicando que OpenCV (<code>cv2</code>) no estaba funcionando correctamente. Para solucionarlo:</p>
+
+	<ol>
+    		<li><strong>Se verificó si OpenCV está instalado</strong> ejecutando:</li>
+    		<pre><code>
+import cv2
+print(cv2.__version__)
+    		</code></pre>
+
+    		<li><strong>Se intentó usar <code>opencv-python-headless</code></strong> en caso de falta de soporte gráfico:</li>
+    		<pre><code>
+pip install opencv-python-headless
+    		</code></pre>
+
+    		<li><strong>Se probó una importación alternativa</strong> en caso de problemas de compatibilidad, lo que finalmente solucionó el problema:</li>
+    		<pre><code>
+import cv2.cv2 as cv2
+    		</code></pre>
+	</ol>
+    	
+
+<p>Al ejecar el código en Unibotics, encontramos errores con OpenCV. Para solucionarlo:</p>
     	<pre>
         	<code>
 import cv2
@@ -74,9 +95,17 @@ pip install opencv-python-headless
     	<h4>⚙️ Variables Globales en Python</h4>
     	<p>Para manejar el historial de errores en el controlador PID:</p>
     	<ul>
-        	<li>🔹 Se definen `error_anterior` e `integral` fuera de la función.</li>
-        	<li>🔹 Se usa `global error_anterior, integral` dentro de la función.</li>
+        	<li> Se definen `error_anterior` e `integral` fuera de la función.</li>
+        	<li> Se usa `global error_anterior, integral` dentro de la función.</li>
     	</ul>
+	
+	<h4>⚙️Valores de las constantes en el controlador PID y reacción del sistema.<</h4>
+        <p>Para los siguientes valores del controlador PID:</p>
+        <ul>  
+                <li>kp = 0.005 </l$               
+		<li>ki = 0.0001 </$
+		<li>kd = 0.002 </$        
+	</ul>
 
     	<h3>4️⃣ Resultados y Conclusiones</h3>
     	<p>Comparando ambos enfoques:</p>
