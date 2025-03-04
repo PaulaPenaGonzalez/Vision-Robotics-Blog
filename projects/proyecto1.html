@@ -31,6 +31,7 @@
 	 <button onclick="mostrarPost(4)"> Cuarto post: Día 4</button>
 	 <button onclick="mostrarPost(5)"> Quinto post: Día 5</button>
 	 <button onclick="mostrarPost(6)"> Sexto post: Día 6</button>
+	 <button onclick="mostrarPost(7)"> Séptimo post: Día 7</button>
     </div>
 
     <!-- Contenido del primer post -->
@@ -240,27 +241,49 @@ import cv2.cv2 as cv2
         <p>💬 ¿Qué opinas de estos avances? ¡Déjanos tus comentarios! 🚀</p>
     </div>
 
+    <!-- Contenido del séptimo post -->
+    <div id="post7" class="post-container" style="display: none;">
+        <h2>🚗 Seguimiento de Línea con PID en Unibotics - Día 7</h2>
+        <p>En esta iteración, hemos introducido mejoras significativas en la detección de la línea roja y en la gestión de la velocidad del coche. Se ha refinado la forma en que se calcula el error para la velocidad y la corrección del volante.</p>
+        
+        <h2>🔹 Mejoras con respecto al Día 6</h2>
+        <ul>
+            <li><strong>Nueva estrategia de cálculo de velocidad:</strong> Ahora se basa en la inclinación de la línea en dos franjas de la imagen, permitiendo detectar curvas con mayor anticipación.</li>
+            <li><strong>Optimización del PID del Volante:</strong> Ajustamos los valores de Kp, Ki y Kd para mejorar la respuesta del coche en curvas más cerradas.</li>
+            <li><strong>Selección más precisa de franjas para detección:</strong> Se ajustaron los valores de recorte en la imagen para detectar mejor la posición de la línea.</li>
+            <li><strong>Estrategia de búsqueda mejorada:</strong> Si el coche pierde la línea, ahora emplea un método más eficiente para encontrarla nuevamente.</li>
+        </ul>
+        
+        <h2>📌 Resultados y Observaciones</h2>
+        <p>El coche ahora tiene una mejor estabilidad y anticipación en curvas. La detección basada en la inclinación de la línea ha reducido la oscilación en rectas y ha mejorado la adaptación de la velocidad.</p>
+        
+        <h2>📈 Próximos Pasos</h2>
+        <ul>
+            <li>🚀 Refinar aún más los valores del PID para mejorar la suavidad de la conducción.</li>
+            <li>🔄 Experimentar con estrategias de control más avanzadas, como el control basado en redes neuronales.</li>
+            <li>⚙️ Implementar una recuperación más agresiva cuando el coche pierde completamente la línea.</li>
+        </ul>
+        
+        <p>💬 ¿Qué opinas de esta nueva implementación? ¡Déjanos tus comentarios! 🚀</p>
+    </div>
+
     <script>
         function mostrarPost(num) {
-            let posts = [1, 2, 3, 4, 5, 6];
-            posts.forEach(post => {
-                let postElement = document.getElementById(`post${post}`);
-                if (postElement) {
-                    postElement.style.opacity = 0;
-                    postElement.style.display = 'none';
-                }
+            let posts = ["post1", "post2", "post3", "post4", "post5", "post6", "post7"];
+            posts.forEach(id => {
+                let post = document.getElementById(id);
+                post.style.opacity = 0;
+                post.style.display = 'none';
             });
-            
-            let selectedPost = document.getElementById(`post${num}`);
-            if (selectedPost) {
+
+            setTimeout(() => {
+                let post = document.getElementById(`post${num}`);
+                post.style.display = 'block';
                 setTimeout(() => {
-                    selectedPost.style.display = 'block';
-                    setTimeout(() => {
-                        selectedPost.style.opacity = 1;
-                        selectedPost.style.transform = 'translateY(0)';
-                    }, 50);
-                }, 200);
-            }
+                    post.style.opacity = 1;
+                    post.style.transform = 'translateY(0)';
+                }, 50);
+            }, 200);
         }
     </script>
 
