@@ -30,6 +30,7 @@
 	 <button onclick="mostrarPost(3)"> Tercer post: Fase 3</button>
 	 <button onclick="mostrarPost(4)"> Cuarto post: Día 4</button>
 	 <button onclick="mostrarPost(5)"> Quinto post: Día 5</button>
+	 <button onclick="mostrarPost(6)"> Sexto post: Día 6</button>
     </div>
 
     <!-- Contenido del primer post -->
@@ -213,14 +214,43 @@ import cv2.cv2 as cv2
         <p>💬 ¿Qué opinas de estos cambios? ¡Déjanos tus comentarios! 🚗💨</p>
     </div>
 
+    <!-- Contenido del sexto post -->
+    <div id="post6" class="post-container" style="display: none;">
+        <h2>🚗 Seguimiento de Línea con PID en Unibotics - Día 6</h2>
+        <p>En esta nueva iteración, hemos refinado aún más el control del vehículo para mejorar su estabilidad y anticipación en las curvas.</p>
+        
+        <h2>🔹 Mejoras con respecto al Día 5</h2>
+        <ul>
+            <li><strong>Implementación de una franja más elevada:</strong> Ahora el coche analiza la línea roja en una franja aún más alta, permitiéndole anticiparse mejor a las curvas.</li>
+            <li><strong>Optimización de la velocidad:</strong> Se ha ajustado el PID de velocidad para permitir una mejor respuesta en curvas y en rectas.</li>
+            <li><strong>Nuevo cálculo de ángulo:</strong> Se ha añadido un método para calcular la inclinación de la línea roja a partir de dos puntos de referencia.</li>
+            <li><strong>Ajustes en la lógica de recuperación:</strong> El sistema de búsqueda oscilante se ha refinado para evitar pérdidas innecesarias de tiempo cuando la línea se pierde momentáneamente.</li>
+        </ul>
+        
+        <h2>📊 Resultados y Observaciones</h2>
+        <p>Con estas mejoras, el coche mantiene una mayor estabilidad y reacciona de manera más precisa ante cambios en la trayectoria.</p>
+        
+        <h2>📈 Próximos Pasos</h2>
+        <ul>
+            <li>🚀 Ajustar los valores del PID para mejorar la respuesta en entornos más dinámicos.</li>
+            <li>🔄 Explorar técnicas de visión por computadora para mejorar la segmentación de la línea roja.</li>
+            <li>⚙️ Implementar un modelo de predicción para anticipar cambios bruscos en la dirección.</li>
+        </ul>
+        
+        <p>💬 ¿Qué opinas de estos avances? ¡Déjanos tus comentarios! 🚀</p>
+    </div>
+
     <script>
         function mostrarPost(num) {
-            let posts = document.querySelectorAll(".post-container");
+            let posts = [1, 2, 3, 4, 5, 6];
             posts.forEach(post => {
-                post.style.opacity = 0;
-                post.style.display = 'none';
+                let postElement = document.getElementById(`post${post}`);
+                if (postElement) {
+                    postElement.style.opacity = 0;
+                    postElement.style.display = 'none';
+                }
             });
-
+            
             let selectedPost = document.getElementById(`post${num}`);
             if (selectedPost) {
                 setTimeout(() => {
