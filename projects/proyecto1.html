@@ -29,6 +29,7 @@
     	 <button onclick="mostrarPost(2)"> Segundo post: Fase 2</button>
 	 <button onclick="mostrarPost(3)"> Tercer post: Fase 3</button>
 	 <button onclick="mostrarPost(4)"> Cuarto post: Día 4</button>
+	 <button onclick="mostrarPost(5)"> Quinto post: Día 5</button>
     </div>
 
     <!-- Contenido del primer post -->
@@ -186,52 +187,52 @@ import cv2.cv2 as cv2
         <p>💬 ¿Qué opinas de este nuevo sistema? ¡Déjanos tus comentarios! 🚀</p>
     </div>
 
+    <!-- Contenido del quinto post -->
+    <div id="post5" class="post-container" style="display: none;">
+        <h2>🚗 Seguimiento de Línea con PID en Unibotics - Día 5</h2>
+        <p>En esta iteración, hemos optimizado el controlador PID de velocidad para mejorar la estabilidad del coche en curvas largas y evitar frenados bruscos.</p>
+        
+        <h2>🔹 Mejoras con respecto al Día 4</h2>
+        <ul>
+            <li><strong>Optimización del PID de velocidad:</strong> Se ha ajustado la ganancia derivativa (<code>Kd_v</code>) para suavizar la transición entre rectas y curvas.</li>
+            <li><strong>Control más gradual:</strong> Ahora la reducción de velocidad en curvas largas es menos abrupta, lo que mejora la estabilidad.</li>
+            <li><strong>Mejor respuesta en cambios de dirección:</strong> Se ha refinado el cálculo del error para que el coche se ajuste de forma más progresiva.</li>
+            <li><strong>Estrategia de recuperación mejorada:</strong> Se han hecho ajustes en la lógica de búsqueda cuando el coche pierde la línea.</li>
+        </ul>
+        
+        <h2>📈 Resultados y Observaciones</h2>
+        <p>Los nuevos ajustes han mejorado la estabilidad general del coche, reduciendo las oscilaciones en rectas y mejorando el comportamiento en curvas. Sin embargo, aún es necesario afinar la calibración del PID para optimizar la respuesta en distintos tipos de curvas.</p>
+        
+        <h2>🔢 Próximos Pasos</h2>
+        <ul>
+            <li>🚀 Ajustar los valores de PID para una conducción aún más fluida.</li>
+            <li>🔄 Explorar métodos avanzados para predecir curvas y mejorar la anticipación.</li>
+            <li>⚙️ Implementar estrategias adicionales para mejorar la estabilidad a altas velocidades.</li>
+        </ul>
+        
+        <p>💬 ¿Qué opinas de estos cambios? ¡Déjanos tus comentarios! 🚗💨</p>
+    </div>
+
     <script>
         function mostrarPost(num) {
-            let post1 = document.getElementById('post1');
-            let post2 = document.getElementById('post2');
-            let post3 = document.getElementById('post3');
-            let post4 = document.getElementById('post4');
+            let posts = document.querySelectorAll(".post-container");
+            posts.forEach(post => {
+                post.style.opacity = 0;
+                post.style.display = 'none';
+            });
 
-            post1.style.opacity = 0;
-            post2.style.opacity = 0;
-            post3.style.opacity = 0;
-            post4.style.opacity = 0;
-            post1.style.display = 'none';
-            post2.style.display = 'none';
-            post3.style.display = 'none';
-            post4.style.display = 'none';
-
-            setTimeout(() => {
-                if (num === 1) {
-                    post1.style.display = 'block';
+            let selectedPost = document.getElementById(`post${num}`);
+            if (selectedPost) {
+                setTimeout(() => {
+                    selectedPost.style.display = 'block';
                     setTimeout(() => {
-                        post1.style.opacity = 1;
-                        post1.style.transform = 'translateY(0)';
+                        selectedPost.style.opacity = 1;
+                        selectedPost.style.transform = 'translateY(0)';
                     }, 50);
-                } else if (num === 2) {
-                    post2.style.display = 'block';
-                    setTimeout(() => {
-                        post2.style.opacity = 1;
-                        post2.style.transform = 'translateY(0)';
-                    }, 50);
-                } else if (num === 3) {
-                    post3.style.display = 'block';
-                    setTimeout(() => {
-                        post3.style.opacity = 1;
-                        post3.style.transform = 'translateY(0)';
-                    }, 50);
-                } else if (num === 4) {
-                    post4.style.display = 'block';
-                    setTimeout(() => {
-                        post4.style.opacity = 1;
-                        post4.style.transform = 'translateY(0)';
-                    }, 50);
-                }
-            }, 200);
+                }, 200);
+            }
         }
     </script>
-	
 
     <!-- 📌 Footer al final de la página -->
     <footer>
