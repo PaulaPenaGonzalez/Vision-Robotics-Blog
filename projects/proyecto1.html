@@ -142,8 +142,6 @@ import cv2.cv2 as cv2
             <li>🔄 Implementar una estrategia de oscilación para cuando el coche pierda la línea roja.</li>
             <li>⚙️ Explorar la posibilidad de controlar la velocidad mediante un PID adicional.</li>
         </ul>
-        
-        <p>💬 ¿Qué opinas de los avances hasta ahora? ¡Déjanos tus comentarios! 🚀</p>
     </div>
 
     <!--Contenido del tercer post -->
@@ -169,7 +167,6 @@ import cv2.cv2 as cv2
             <li>⚙️ Implementar una estrategia de búsqueda más eficiente cuando el coche pierda la línea.</li>
         </ul>
         
-        <p>💬 ¿Qué opinas de esta nueva estrategia? ¡Déjanos tus comentarios! 🚀</p>
     </div>
 
     <!-- Contenido del cuarto post -->
@@ -194,8 +191,6 @@ import cv2.cv2 as cv2
             <li>🔄 Explorar métodos de predicción de curvas para anticipar mejor los cambios de dirección.</li>
             <li>⚙️ Optimizar la lógica de recuperación cuando el coche pierde la línea.</li>
         </ul>
-        
-        <p>💬 ¿Qué opinas de este nuevo sistema? ¡Déjanos tus comentarios! 🚀</p>
     </div>
 
     <!-- Contenido del quinto post -->
@@ -220,8 +215,6 @@ import cv2.cv2 as cv2
             <li>🔄 Explorar métodos avanzados para predecir curvas y mejorar la anticipación.</li>
             <li>⚙️ Implementar estrategias adicionales para mejorar la estabilidad a altas velocidades.</li>
         </ul>
-        
-        <p>💬 ¿Qué opinas de estos cambios? ¡Déjanos tus comentarios! 🚗💨</p>
     </div>
 
     <!-- Contenido del sexto post -->
@@ -246,8 +239,6 @@ import cv2.cv2 as cv2
             <li>🔄 Explorar técnicas de visión por computadora para mejorar la segmentación de la línea roja.</li>
             <li>⚙️ Implementar un modelo de predicción para anticipar cambios bruscos en la dirección.</li>
         </ul>
-        
-        <p>💬 ¿Qué opinas de estos avances? ¡Déjanos tus comentarios! 🚀</p>
     </div>
 
     <!-- Contenido del séptimo post -->
@@ -271,8 +262,6 @@ import cv2.cv2 as cv2
             <li>🔄 Experimentar con estrategias de control más avanzadas, como el control basado en redes neuronales.</li>
             <li>⚙️ Implementar una recuperación más agresiva cuando el coche pierde completamente la línea.</li>
         </ul>
-        
-        <p>💬 ¿Qué opinas de esta nueva implementación? ¡Déjanos tus comentarios! 🚀</p>
     </div>
 
     <!-- Contenido del octavo post -->
@@ -305,6 +294,30 @@ import cv2.cv2 as cv2
         </ul>
         
         <p>💬 ¡Este ha sido un gran avance en el control del coche holonómico! ¿Qué opinas de los resultados? 🚀</p>
+    </div>
+
+    <!-- Contenido del primer post sobre el coche Ackerman -->
+    <div id="post9" class="post-container" style="display: none;">
+        <h2>🚗 Introducción al Coche Ackerman - Primera Iteración</h2>
+        <p>Después de haber implementado exitosamente el controlador PID para el coche holonómico, hemos decidido adaptar este sistema para el coche tipo Ackerman. Esto nos permitirá evaluar cómo el control PID se comporta en un sistema con restricciones en la dirección.</p>
+        
+        <h2>🔹 Principales diferencias con el coche holonómico</h2>
+        <ul>
+            <li><strong>Sistema de dirección restringida:</strong> A diferencia del holonómico, el coche Ackerman solo puede girar cambiando el ángulo de las ruedas delanteras.</li>
+            <li><strong>Adaptación del PID:</strong> Se ajustaron las constantes del PID para manejar mejor la dinámica del Ackerman.</li>
+            <li><strong>Manejo de velocidad optimizado:</strong> La velocidad ahora se adapta en función de la curvatura detectada para evitar derrapes.</li>
+        </ul>
+        
+        <h2>📌 Implementación inicial</h2>
+        <p>En esta primera iteración, hemos mantenido la estrategia de detección de la línea roja usando OpenCV y segmentación en HSV. También implementamos el cálculo de la inclinación de la línea para ajustar la velocidad en tiempo real.</p>
+        
+        <h2>📈 Próximos pasos</h2>
+        <ul>
+            <li>🚀 Refinar los valores del PID para mejorar la respuesta del coche en curvas cerradas.</li>
+            <li>🔄 Implementar una estrategia de recuperación en caso de que el coche pierda la línea.</li>
+            <li>⚙️ Ajustar el modelo para mejorar la estabilidad en rectas y transiciones suaves en curvas.</li>
+        </ul>
+        
     </div>
 
     <script>
