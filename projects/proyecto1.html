@@ -320,6 +320,31 @@ import cv2.cv2 as cv2
         
     </div>
 
+    <!-- Contenido del segundo post sobre el coche Ackerman -->
+    <div id="post_ackerman_2" class="post-container" style="display: none;">
+        <h2>🚗 Simplificación del Cálculo del Error - Quinta Iteración</h2>
+        <p>En esta nueva versión del controlador PID para el coche Ackerman, hemos realizado un cambio significativo en la forma en la que calculamos el error para la corrección de dirección y velocidad.</p>
+        
+        <h2>🔹 Principales Cambios</h2>
+        <ul>
+            <li><strong>Eliminación del cálculo basado en la inclinación de la línea:</strong> Ahora solo se mide la diferencia del centro de la línea con el centro del frame.</li>
+            <li><strong>Simplificación del código:</strong> Se redujo la cantidad de cálculos, lo que mejora la eficiencia y estabilidad del sistema.</li>
+            <li><strong>PID más controlado:</strong> Ajustamos los valores del PID para reducir oscilaciones innecesarias.</li>
+        </ul>
+        
+        <h2>📌 Efectos de este Cambio</h2>
+        <p>Gracias a esta simplificación, el código ahora es más ligero y eficiente. Sin embargo, esto también significa que el coche podría ser menos preciso en curvas cerradas, ya que no anticipa cambios de dirección mediante la inclinación de la línea roja.</p>
+        
+        <h2>📈 Próximos Pasos</h2>
+        <ul>
+            <li>🚀 Evaluar si la simplificación afecta el rendimiento en circuitos con curvas cerradas.</li>
+            <li>🔄 Ajustar los valores del PID para optimizar el seguimiento de la línea.</li>
+            <li>⚙️ Explorar la posibilidad de combinar la nueva estrategia con un modelo predictivo.</li>
+        </ul>
+        
+        <p>💬 ¿Qué opinas de esta nueva estrategia? ¡Déjanos tus comentarios! 🚀</p>
+    </div>
+
     <script>
     function mostrarPost(categoria, num) {
         let categorias = ["holonomico", "ackerman"];
