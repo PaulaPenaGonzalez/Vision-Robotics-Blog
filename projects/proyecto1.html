@@ -28,6 +28,7 @@
    	 <button onclick="mostrarPost(1)"> Primer post: Fase 1</button>
     	 <button onclick="mostrarPost(2)"> Segundo post: Fase 2</button>
 	 <button onclick="mostrarPost(3)"> Tercer post: Fase 3</button>
+	 <button onclick="mostrarPost(4)"> Cuarto post: Día 4</button>
     </div>
 
     <!-- Contenido del primer post -->
@@ -158,19 +159,48 @@ import cv2.cv2 as cv2
         
         <p>💬 ¿Qué opinas de esta nueva estrategia? ¡Déjanos tus comentarios! 🚀</p>
     </div>
-	
+
+    <!-- Contenido del cuarto post -->
+    <div id="post4" class="post-container" style="display: none;">
+        <h2>🚗 Seguimiento de Línea con PID en Unibotics - Día 4</h2>
+        <p>En esta iteración, hemos introducido un controlador PID adicional para gestionar la velocidad del coche. Ahora, el coche no solo sigue la línea con precisión, sino que también ajusta su velocidad en función de la curvatura de la pista.</p>
+        
+        <h2>🔹 Mejoras con respecto al Día 3</h2>
+        <ul>
+            <li><strong>PID para la Velocidad:</strong> Implementamos un segundo controlador PID que reduce la velocidad cuando el coche entra en curvas y la aumenta en rectas.</li>
+            <li><strong>Optimización del PID del Volante:</strong> Ajustamos los valores de Kp, Ki y Kd para mejorar la respuesta del coche en curvas.</li>
+            <li><strong>Segmentación Refinada:</strong> Se sigue usando la franja superior de la imagen, pero se ha ajustado el porcentaje de recorte para mejorar la detección.</li>
+            <li><strong>Estrategia de Recuperación Mejorada:</strong> Ahora el coche alterna entre búsqueda oscilante y recuperación de la última dirección conocida cuando pierde la línea.</li>
+        </ul>
+        
+        <h2>📌 Resultados y Observaciones</h2>
+        <p>Gracias a la nueva implementación del PID de velocidad, el coche mantiene una conducción más fluida y optimizada, reduciendo la inestabilidad en curvas. Aun así, todavía hay margen de mejora en la calibración del PID para minimizar oscilaciones en rectas.</p>
+        
+        <h2>📈 Próximos Pasos</h2>
+        <ul>
+            <li>🚀 Refinar aún más los valores del PID para obtener una respuesta más natural.</li>
+            <li>🔄 Explorar métodos de predicción de curvas para anticipar mejor los cambios de dirección.</li>
+            <li>⚙️ Optimizar la lógica de recuperación cuando el coche pierde la línea.</li>
+        </ul>
+        
+        <p>💬 ¿Qué opinas de este nuevo sistema? ¡Déjanos tus comentarios! 🚀</p>
+    </div>
+
     <script>
         function mostrarPost(num) {
             let post1 = document.getElementById('post1');
             let post2 = document.getElementById('post2');
             let post3 = document.getElementById('post3');
+            let post4 = document.getElementById('post4');
 
             post1.style.opacity = 0;
             post2.style.opacity = 0;
             post3.style.opacity = 0;
+            post4.style.opacity = 0;
             post1.style.display = 'none';
             post2.style.display = 'none';
             post3.style.display = 'none';
+            post4.style.display = 'none';
 
             setTimeout(() => {
                 if (num === 1) {
@@ -191,10 +221,17 @@ import cv2.cv2 as cv2
                         post3.style.opacity = 1;
                         post3.style.transform = 'translateY(0)';
                     }, 50);
+                } else if (num === 4) {
+                    post4.style.display = 'block';
+                    setTimeout(() => {
+                        post4.style.opacity = 1;
+                        post4.style.transform = 'translateY(0)';
+                    }, 50);
                 }
             }, 200);
         }
     </script>
+	
 
     <!-- 📌 Footer al final de la página -->
     <footer>
