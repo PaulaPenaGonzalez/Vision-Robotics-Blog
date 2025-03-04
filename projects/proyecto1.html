@@ -44,7 +44,7 @@
     </div>
 
     <!-- Contenido del primer post -->
-    <div id="post1" class="post-container" style="display: none;">
+    <div id="post_holonomico_1" class="post-container" style="display: none;">
     	<h2>Objetivo: Seguimiento de una Línea Roja en Unibotics con un Coche de Fórmula 1</h2>
 
     	<h3>1️⃣ Enfoque Inicial: Decisiones Discretas</h3>
@@ -120,7 +120,7 @@ import cv2.cv2 as cv2
     </div>
 
     <!-- Contenido del segundo post -->
-    <div id="post2" class="post-container" style="display: none;">
+    <div id="post_holonomico_2" class="post-container" style="display: none;">
         <h2>🚗 Seguimiento de Línea con PID en Unibotics - Día 2</h2>
         <p>En este segundo día de trabajo, hemos realizado ajustes importantes en la implementación del controlador PID para mejorar la estabilidad y la capacidad del coche para seguir la línea roja en Unibotics.</p>
         
@@ -145,7 +145,7 @@ import cv2.cv2 as cv2
     </div>
 
     <!--Contenido del tercer post -->
-    <div id="post3" class="post-container" style="display: none;">
+    <div id="post_holonomico_3" class="post-container" style="display: none;">
         <h2>🚗 Seguimiento de Línea con PID en Unibotics - Día 3</h2>
         <p>En esta tercera iteración, hemos mejorado la segmentación de la línea roja utilizando un enfoque basado en una franja superior de la imagen. Este cambio nos permite anticiparnos mejor a las curvas.</p>
         
@@ -170,7 +170,7 @@ import cv2.cv2 as cv2
     </div>
 
     <!-- Contenido del cuarto post -->
-    <div id="post4" class="post-container" style="display: none;">
+    <div id="post_holonomico_4" class="post-container" style="display: none;">
         <h2>🚗 Seguimiento de Línea con PID en Unibotics - Día 4</h2>
         <p>En esta iteración, hemos introducido un controlador PID adicional para gestionar la velocidad del coche. Ahora, el coche no solo sigue la línea con precisión, sino que también ajusta su velocidad en función de la curvatura de la pista.</p>
         
@@ -194,7 +194,7 @@ import cv2.cv2 as cv2
     </div>
 
     <!-- Contenido del quinto post -->
-    <div id="post5" class="post-container" style="display: none;">
+    <div id="post_holonomico_5" class="post-container" style="display: none;">
         <h2>🚗 Seguimiento de Línea con PID en Unibotics - Día 5</h2>
         <p>En esta iteración, hemos optimizado el controlador PID de velocidad para mejorar la estabilidad del coche en curvas largas y evitar frenados bruscos.</p>
         
@@ -218,7 +218,7 @@ import cv2.cv2 as cv2
     </div>
 
     <!-- Contenido del sexto post -->
-    <div id="post6" class="post-container" style="display: none;">
+    <div id="post_holonomico_6" class="post-container" style="display: none;">
         <h2>🚗 Seguimiento de Línea con PID en Unibotics - Día 6</h2>
         <p>En esta nueva iteración, hemos refinado aún más el control del vehículo para mejorar su estabilidad y anticipación en las curvas.</p>
         
@@ -242,7 +242,7 @@ import cv2.cv2 as cv2
     </div>
 
     <!-- Contenido del séptimo post -->
-    <div id="post7" class="post-container" style="display: none;">
+    <div id="post_holonomico_7" class="post-container" style="display: none;">
         <h2>🚗 Seguimiento de Línea con PID en Unibotics - Día 7</h2>
         <p>En esta iteración, hemos introducido mejoras significativas en la detección de la línea roja y en la gestión de la velocidad del coche. Se ha refinado la forma en que se calcula el error para la velocidad y la corrección del volante.</p>
         
@@ -265,7 +265,7 @@ import cv2.cv2 as cv2
     </div>
 
     <!-- Contenido del octavo post -->
-    <div id="post8" class="post-container" style="display: none;">
+    <div id="post_holonomico_8" class="post-container" style="display: none;">
         <h2>🚗 Versión Final del Controlador PID - Día 8</h2>
         <p>Tras múltiples iteraciones y pruebas, hemos llegado a la versión final del controlador PID para el coche holonómico en Unibotics. Se intentó volver a la implementación basada en la diferencia entre el centroide y el centro del frame, pero la estrategia basada en el ángulo de inclinación de la línea resultó ser la más estable.</p>
         
@@ -297,7 +297,7 @@ import cv2.cv2 as cv2
     </div>
 
     <!-- Contenido del primer post sobre el coche Ackerman -->
-    <div id="post9" class="post-container" style="display: none;">
+    <div id="post_ackerman_1" class="post-container" style="display: none;">
         <h2>🚗 Introducción al Coche Ackerman - Primera Iteración</h2>
         <p>Después de haber implementado exitosamente el controlador PID para el coche holonómico, hemos decidido adaptar este sistema para el coche tipo Ackerman. Esto nos permitirá evaluar cómo el control PID se comporta en un sistema con restricciones en la dirección.</p>
         
@@ -321,28 +321,33 @@ import cv2.cv2 as cv2
     </div>
 
     <script>
-        function mostrarPost(num) {
-            let posts = ["post1", "post2", "post3", "post4", "post5", "post6", "post7", "post8", "post9"];
-            posts.forEach(id => {
-                let post = document.getElementById(id);
+    function mostrarPost(categoria, num) {
+        let categorias = ["holonomico", "ackerman"];
+        
+        // Ocultar todos los posts de ambas categorías
+        categorias.forEach(cat => {
+            for (let i = 1; i <= 9; i++) {
+                let post = document.getElementById(`post_${cat}_${i}`);
                 if (post) {
                     post.style.opacity = 0;
                     post.style.display = 'none';
                 }
-            });
+            }
+        });
 
-            setTimeout(() => {
-                let post = document.getElementById(`post${num}`);
-                if (post) {
-                    post.style.display = 'block';
-                    setTimeout(() => {
-                        post.style.opacity = 1;
-                        post.style.transform = 'translateY(0)';
-                    }, 50);
-                }
-            }, 200);
-        }
-    </script>
+        // Mostrar el post seleccionado
+        setTimeout(() => {
+            let post = document.getElementById(`post_${categoria}_${num}`);
+            if (post) {
+                post.style.display = 'block';
+                setTimeout(() => {
+                    post.style.opacity = 1;
+                    post.style.transform = 'translateY(0)';
+                }, 50);
+            }
+        }, 200);
+    }
+</script>
 
     <!-- 📌 Footer al final de la página -->
     <footer>
