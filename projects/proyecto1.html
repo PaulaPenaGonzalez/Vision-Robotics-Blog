@@ -321,20 +321,18 @@ import cv2.cv2 as cv2
     </div>
 
     <script>
-        function mostrarPost(tipo, num) {
-            let tipos = {"holonomico": 8, "ackerman": 4};
-            Object.keys(tipos).forEach(t => {
-                for (let i = 1; i <= tipos[t]; i++) {
-                    let post = document.getElementById(`post_${t}_${i}`);
-                    if (post) {
-                        post.style.opacity = 0;
-                        post.style.display = 'none';
-                    }
+        function mostrarPost(num) {
+            let posts = ["post1", "post2", "post3", "post4", "post5", "post6", "post7", "post8", "post9"];
+            posts.forEach(id => {
+                let post = document.getElementById(id);
+                if (post) {
+                    post.style.opacity = 0;
+                    post.style.display = 'none';
                 }
             });
 
             setTimeout(() => {
-                let post = document.getElementById(`post_${tipo}_${num}`);
+                let post = document.getElementById(`post${num}`);
                 if (post) {
                     post.style.display = 'block';
                     setTimeout(() => {
