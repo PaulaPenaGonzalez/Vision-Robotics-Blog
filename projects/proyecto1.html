@@ -163,11 +163,14 @@ import cv2.cv2 as cv2
         function mostrarPost(num) {
             let post1 = document.getElementById('post1');
             let post2 = document.getElementById('post2');
+            let post3 = document.getElementById('post3');
 
             post1.style.opacity = 0;
             post2.style.opacity = 0;
+            post3.style.opacity = 0;
             post1.style.display = 'none';
             post2.style.display = 'none';
+            post3.style.display = 'none';
 
             setTimeout(() => {
                 if (num === 1) {
@@ -181,6 +184,12 @@ import cv2.cv2 as cv2
                     setTimeout(() => {
                         post2.style.opacity = 1;
                         post2.style.transform = 'translateY(0)';
+                    }, 50);
+                } else if (num === 3) {
+                    post3.style.display = 'block';
+                    setTimeout(() => {
+                        post3.style.opacity = 1;
+                        post3.style.transform = 'translateY(0)';
                     }, 50);
                 }
             }, 200);
