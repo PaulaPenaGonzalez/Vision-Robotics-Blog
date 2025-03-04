@@ -38,8 +38,8 @@
     <div class="container">
         <h2>Publicaciones - Coche Ackerman</h2>
         <button onclick="mostrarPost('ackerman', 1)"> Primer post: Configuración Inicial</button>
-        <button onclick="mostrarPost('ackerman', 2)"> Segundo post: Ajuste de PID</button>
-        <button onclick="mostrarPost('ackerman', 3)"> Tercer post: Mejoras en Seguimiento</button>
+        <button onclick="mostrarPost('ackerman', 2)"> Segundo post: Simplificación del Cálculo del Error</button>
+        <button onclick="mostrarPost('ackerman', 3)"> Tercer post: Introducción de la Banda Muerta</button>
         <button onclick="mostrarPost('ackerman', 4)"> Cuarto post: Pruebas Finales</button>
     </div>
 
@@ -322,7 +322,7 @@ import cv2.cv2 as cv2
 
     <!-- Contenido del segundo post sobre el coche Ackerman -->
     <div id="post_ackerman_2" class="post-container" style="display: none;">
-        <h2>🚗 Simplificación del Cálculo del Error - Quinta Iteración</h2>
+        <h2>🚗 Simplificación del Cálculo del Error - Segunda Iteración</h2>
         <p>En esta nueva versión del controlador PID para el coche Ackerman, hemos realizado un cambio significativo en la forma en la que calculamos el error para la corrección de dirección y velocidad.</p>
         
         <h2>🔹 Principales Cambios</h2>
@@ -343,6 +343,31 @@ import cv2.cv2 as cv2
         </ul>
         
         <p>💬 ¿Qué opinas de esta nueva estrategia? ¡Déjanos tus comentarios! 🚀</p>
+    </div>
+
+    <!-- Contenido del tercer post sobre el coche Ackerman -->
+    <div id="post_ackerman_3" class="post-container" style="display: none;">
+        <h2>🚗 Introducción de la Banda Muerta - Tercera Iteración</h2>
+        <p>En esta versión del controlador PID para el coche Ackerman, hemos introducido la banda muerta en la corrección de la dirección, lo que permite evitar pequeñas oscilaciones innecesarias en la dirección.</p>
+        
+        <h2>🔹 Principales Mejoras</h2>
+        <ul>
+            <li><strong>Implementación de una banda muerta en el control del volante:</strong> Se evita que el coche haga correcciones innecesarias cuando el error es muy pequeño.</li>
+            <li><strong>Ajuste de los valores del PID:</strong> Se incrementó Kp y Kd para mejorar la estabilidad en curvas.</li>
+            <li><strong>Optimización de la velocidad:</strong> Se ha ajustado el PID de velocidad para permitir una mayor velocidad en rectas.</li>
+        </ul>
+        
+        <h2>📌 Impacto del Cambio</h2>
+        <p>Gracias a la introducción de la banda muerta, el coche ahora es más estable en rectas y no realiza ajustes de dirección innecesarios. Esto ha permitido un incremento en la velocidad máxima sin comprometer la estabilidad en curvas.</p>
+        
+        <h2>📈 Próximos Pasos</h2>
+        <ul>
+            <li>🚀 Evaluar el rendimiento en circuitos más complejos con diferentes tipos de curvas.</li>
+            <li>🔄 Ajustar más la banda muerta para lograr un equilibrio óptimo entre estabilidad y respuesta.</li>
+            <li>⚙️ Explorar el uso de estrategias predictivas para anticipar mejor las curvas.</li>
+        </ul>
+        
+        <p>💬 ¿Qué opinas de esta nueva implementación? ¡Déjanos tus comentarios! 🚀</p>
     </div>
 
     <script>
