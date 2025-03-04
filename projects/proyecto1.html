@@ -32,6 +32,7 @@
 	 <button onclick="mostrarPost(5)"> Quinto post: Día 5</button>
 	 <button onclick="mostrarPost(6)"> Sexto post: Día 6</button>
 	 <button onclick="mostrarPost(7)"> Séptimo post: Día 7</button>
+	 <button onclick="mostrarPost(8)"> Octavo post: Día 8</button>
     </div>
 
     <!-- Contenido del primer post -->
@@ -266,22 +267,52 @@ import cv2.cv2 as cv2
         <p>💬 ¿Qué opinas de esta nueva implementación? ¡Déjanos tus comentarios! 🚀</p>
     </div>
 
+    <!-- Contenido del octavo post -->
+    <div id="post8" class="post-container" style="display: none;">
+        <h2>🚗 Versión Final del Controlador PID - Día 8</h2>
+        <p>Tras múltiples iteraciones y pruebas, hemos llegado a la versión final del controlador PID para el coche holonómico en Unibotics. Se intentó volver a la implementación basada en la diferencia entre el centroide y el centro del frame, pero la estrategia basada en el ángulo de inclinación de la línea resultó ser la más estable.</p>
+        
+        <h2>🔹 Mejoras finales en el controlador PID</h2>
+        <ul>
+            <li><strong>Optimización de valores de PID:</strong> Se realizaron ajustes finos a <code>Kp</code>, <code>Ki</code> y <code>Kd</code> tanto en el control del volante como en la velocidad, logrando una respuesta más suave y precisa.</li>
+            <li><strong>Uso de la inclinación de la línea roja:</strong> Se mantiene el cálculo del error a partir de la inclinación de la línea en diferentes franjas, lo que mejora la estabilidad en curvas.</li>
+            <li><strong>Corrección de velocidad con PID:</strong> La velocidad ahora se ajusta de manera dinámica en función del ángulo de la línea, lo que evita frenadas bruscas y mejora la fluidez.</li>
+            <li><strong>Estrategia de búsqueda refinada:</strong> Se mejoró la lógica de recuperación cuando el coche pierde la línea, aumentando la eficiencia en la reorientación.</li>
+        </ul>
+        
+        <h2>📌 Resultados Finales</h2>
+        <p>Con estos ajustes, el coche ahora sigue la línea roja con alta precisión y estabilidad. La estrategia basada en el ángulo ha demostrado ser más efectiva que la basada en la posición del centroide, permitiendo mejor anticipación en curvas y una conducción más fluida.</p>
+        
+        <h2>📈 Conclusión y Próximos Pasos</h2>
+        <ul>
+            <li>🚀 Implementar una versión mejorada del control para coches Ackerman.</li>
+            <li>🔍 Explorar el uso de redes neuronales o algoritmos de aprendizaje automático para mejorar la predicción del camino.</li>
+            <li>⚙️ Integrar detección de obstáculos y ajustes en tiempo real.</li>
+        </ul>
+        
+        <p>💬 ¡Este ha sido un gran avance en el control del coche holonómico! ¿Qué opinas de los resultados? 🚀</p>
+    </div>
+
     <script>
         function mostrarPost(num) {
-            let posts = ["post1", "post2", "post3", "post4", "post5", "post6", "post7"];
+            let posts = ["post1", "post2", "post3", "post4", "post5", "post6", "post7", "post8"];
             posts.forEach(id => {
                 let post = document.getElementById(id);
-                post.style.opacity = 0;
-                post.style.display = 'none';
+                if (post) {
+                    post.style.opacity = 0;
+                    post.style.display = 'none';
+                }
             });
 
             setTimeout(() => {
                 let post = document.getElementById(`post${num}`);
-                post.style.display = 'block';
-                setTimeout(() => {
-                    post.style.opacity = 1;
-                    post.style.transform = 'translateY(0)';
-                }, 50);
+                if (post) {
+                    post.style.display = 'block';
+                    setTimeout(() => {
+                        post.style.opacity = 1;
+                        post.style.transform = 'translateY(0)';
+                    }, 50);
+                }
             }, 200);
         }
     </script>
