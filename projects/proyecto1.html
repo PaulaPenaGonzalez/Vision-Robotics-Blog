@@ -25,8 +25,9 @@
 
     <div class="container">
          <h2>Publicaciones</h2>
-   	 <button onclick="mostrarPost(1)"> Primer post: Día 1</button>
-    	 <button onclick="mostrarPost(2)"> Segundo post: Día 2</button>
+   	 <button onclick="mostrarPost(1)"> Primer post: Fase 1</button>
+    	 <button onclick="mostrarPost(2)"> Segundo post: Fase 2</button>
+	 <button onclick="mostrarPost(3)"> Tercer post: Fase 3</button>
     </div>
 
     <!-- Contenido del primer post -->
@@ -132,6 +133,32 @@ import cv2.cv2 as cv2
         <p>💬 ¿Qué opinas de los avances hasta ahora? ¡Déjanos tus comentarios! 🚀</p>
     </div>
 
+    <!--Contenido del tercer post -->
+    <div id="post3" class="post-container" style="display: none;">
+        <h2>🚗 Seguimiento de Línea con PID en Unibotics - Día 3</h2>
+        <p>En esta tercera iteración, hemos mejorado la segmentación de la línea roja utilizando un enfoque basado en una franja superior de la imagen. Este cambio nos permite anticiparnos mejor a las curvas.</p>
+        
+        <h2>🔹 Mejoras con respecto al Día 2</h2>
+        <ul>
+            <li><strong>Selección de una Franja Superior:</strong> En lugar de analizar toda la imagen, ahora utilizamos solo una ventana en la parte superior, lo que mejora la anticipación en curvas.</li>
+            <li><strong>Reducción de Ruido:</strong> Al enfocarnos en una franja específica, eliminamos información irrelevante que podía afectar el cálculo del centro de la línea.</li>
+            <li><strong>Corrección del PID:</strong> Se ajustaron los parámetros del PID para adaptarse a la nueva estrategia de detección.</li>
+            <li><strong>Visualización de la Máscara:</strong> Se añadió una función para mostrar solo la franja seleccionada, permitiendo depurar mejor el procesamiento de la imagen.</li>
+        </ul>
+        
+        <h2>📌 Resultados y Observaciones</h2>
+        <p>Con esta mejora, el coche ahora reacciona con mayor antelación a las curvas, reduciendo la oscilación y mejorando la estabilidad en el seguimiento de la línea. Sin embargo, todavía debemos ajustar los valores del PID para optimizar la respuesta en curvas más cerradas.</p>
+        
+        <h2>📈 Próximos Pasos</h2>
+        <ul>
+            <li>🚀 Seguir ajustando los valores del PID para mejorar la estabilidad.</li>
+            <li>🔄 Explorar la posibilidad de un PID adaptativo que ajuste su comportamiento en tiempo real.</li>
+            <li>⚙️ Implementar una estrategia de búsqueda más eficiente cuando el coche pierda la línea.</li>
+        </ul>
+        
+        <p>💬 ¿Qué opinas de esta nueva estrategia? ¡Déjanos tus comentarios! 🚀</p>
+    </div>
+	
     <script>
         function mostrarPost(num) {
             let post1 = document.getElementById('post1');
