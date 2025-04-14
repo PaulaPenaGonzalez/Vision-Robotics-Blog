@@ -45,72 +45,23 @@
 	<h1> Preparación inicial y lectura de imágenes </h1>
     	<h2> Objetivo: Cargar y preprocesar las imágenes estéreo capturadas por las dos cámaras calibradas (izquierda y derecha). Fundamental para extraer la información visual relevante que servirá como base para todo el sistema de reconstrucción 3D.</h2>
 
-    	<h3>🖼️ Captura de Imágenes</h3>
+    	<h3> Captura de Imágenes</h3>
 
     	<p>Las imágenes izquierda y derecha fueron obtenidas desde el simulador Unibotics. Estas imágenes corresponden a la misma escena vista desde dos ángulos ligeramente diferentes, lo que permite generar percepción de profundidad gracias al paralaje.
 </p>
 
-    	<h3>2️⃣ Mejorando la Precisión con un Controlador PID</h3>
-    	<p>Para mejorar el seguimiento, se integró un <strong>controlador PID</strong> para ajustar el giro del coche de manera progresiva.</p>
+    	<h3> Conversión a Escala de Grises</h3>
+    	<p> Para simplificar el análisis visual y reducir la carga computacional, se realizó una conversión de las imágenes a escala de grises. Esto permite centrarse en la estructura de la escena sin que el color interfiera en las operaciones iniciales como la detección de bordes.</p>
 
-    	<h4>📝 Concepto del PID</h4>
-    	<ul>
-        	<li><strong>Componente Proporcional (P):</strong> Ajusta la dirección según la desviación respecto a la línea.</li>
-        	<li><strong>Componente Integral (I):</strong> Compensa errores acumulados en el tiempo.</li>
-        	<li><strong>Componente Derivativo (D):</strong> Reduce oscilaciones corrigiendo cambios bruscos.</li>
-    	</ul>
+    	<h3>Detección de Bordes</h3>
+	<p>La etapa clave en este punto fue aplicar un detector de bordes, específicamente el método de Canny. Esta técnica resalta los contornos y líneas más relevantes de la escena, permitiendo identificar los puntos característicos que luego se utilizarán para hallar correspondencias entre ambas imágenes.
 
-    	<h3>3️⃣ Problemas Encontrados y Soluciones</h3>
-    	<h4>🛠️ Errores con OpenCV (`cv2`)</h4>
-	<p>Al ejecutar el código en Unibotics, se encontraron errores indicando que OpenCV (<code>cv2</code>) no estaba funcionando correctamente. Para solucionarlo:</p>
-
-	<ol>
-    		<li><strong>Se verificó si OpenCV está instalado</strong> ejecutando:</li>
-    		<pre><code>
-import cv2
-print(cv2.__version__)
-    		</code></pre>
-
-    		<li><strong>Se intentó usar <code>opencv-python-headless</code></strong> en caso de falta de soporte gráfico:</li>
-    		<pre><code>
-pip install opencv-python-headless
-    		</code></pre>
-
-    		<li><strong>Se probó una importación alternativa</strong> en caso de problemas de compatibilidad, lo que finalmente solucionó el problema:</li>
-    		<pre><code>
-import cv2.cv2 as cv2
-    		</code></pre>
-	</ol>
+Se hizo un ajuste manual de los parámetros del detector para encontrar un equilibrio entre sensibilidad (captar todos los bordes importantes) y robustez (evitar bordes producidos por ruido o detalles irrelevantes).</p>
     	
-    	<h4>⚙️ Variables Globales en Python</h4>
-    	<p>Para manejar el historial de errores en el controlador PID:</p>
-    	<ul>
-        	<li> Se definen `error_anterior` e `integral` fuera de la función.</li>
-        	<li> Se usa `global error_anterior, integral` dentro de la función.</li>
-    	</ul>
-	
-	<h4>⚙️Valores de las constantes en el controlador PID y reacción del sistema.<</h4>
-        <p>Para los siguientes valores del controlador PID:</p>
-        <ul>  
-                <li>kp = 0.005 </l$               
-		<li>ki = 0.0001 </$
-		<li>kd = 0.002 </$        
-	</ul>
 
-    	<h3>4️⃣ Resultados y Conclusiones</h3>
-    	<p>Comparando ambos enfoques:</p>
-    	<ul>
-        	<li>✅ El método de decisiones discretas es fácil de implementar, pero menos preciso.</li>
-        	<li>✅ El controlador PID mejora la estabilidad y permite un movimiento fluido en el circuito.</li>
-    	</ul>
-
-    	<h3>5️⃣ Próximos Pasos</h3>
-    	<ul>
-        	<li> Ajustar los valores de <strong>Kp, Ki y Kd</strong> para optimizar el PID.</li>
-        	<li> Agregar detección de obstáculos para evitar colisiones.</li>
-        	<li> Implementar una estrategia de recuperación si la línea se pierde.</li>
-    	</ul>
-
+    	<h3>Visualización y Verificación</h3>
+    	<p>Una vez obtenidas las máscaras de bordes, se visualizaron ambas imágenes con sus respectivos contornos resaltados. Esto ayudó a comprobar que los parámetros elegidos proporcionaban una buena base para continuar con la reconstrucción.</p>
+    
     </div>
 
     <!-- Contenido del segundo post -->
