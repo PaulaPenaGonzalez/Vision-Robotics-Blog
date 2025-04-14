@@ -19,7 +19,7 @@
     	</p>
     	<p>
         A continuación, puedes leer las publicaciones relacionadas con este proyecto, donde se detallan los avances, problemas encontrados y soluciones aplicadas. 
-    	</p>
+	</p>
 
 	<!-- Imagen de la reconstrucción -->
     	<div style="text-align: center; margin-top: 20px;">
@@ -47,16 +47,13 @@
 
     	<h3> Captura de Imágenes</h3>
 
-    	<p>Las imágenes izquierda y derecha fueron obtenidas desde el simulador Unibotics. Estas imágenes corresponden a la misma escena vista desde dos ángulos ligeramente diferentes, lo que permite generar percepción de profundidad gracias al paralaje.
-</p>
+    	<p>Las imágenes izquierda y derecha fueron obtenidas desde el simulador Unibotics. Estas imágenes corresponden a la misma escena vista desde dos ángulos ligeramente diferentes, lo que permite generar percepción de profundidad gracias al paralaje.</p>
 
     	<h3> Conversión a Escala de Grises</h3>
     	<p> Para simplificar el análisis visual y reducir la carga computacional, se realizó una conversión de las imágenes a escala de grises. Esto permite centrarse en la estructura de la escena sin que el color interfiera en las operaciones iniciales como la detección de bordes.</p>
 
     	<h3>Detección de Bordes</h3>
-	<p>La etapa clave en este punto fue aplicar un detector de bordes, específicamente el método de Canny. Esta técnica resalta los contornos y líneas más relevantes de la escena, permitiendo identificar los puntos característicos que luego se utilizarán para hallar correspondencias entre ambas imágenes.
-
-Se hizo un ajuste manual de los parámetros del detector para encontrar un equilibrio entre sensibilidad (captar todos los bordes importantes) y robustez (evitar bordes producidos por ruido o detalles irrelevantes).</p>
+	<p>La etapa clave en este punto fue aplicar un detector de bordes, específicamente el método de Canny. Esta técnica resalta los contornos y líneas más relevantes de la escena, permitiendo identificar los puntos característicos que luego se utilizarán para hallar correspondencias entre ambas imágenes. Se hizo un ajuste manual de los parámetros del detector para encontrar un equilibrio entre sensibilidad (captar todos los bordes importantes) y robustez (evitar bordes producidos por ruido o detalles irrelevantes).</p>
     	
 
     	<h3>Visualización y Verificación</h3>
