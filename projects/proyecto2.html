@@ -50,7 +50,7 @@
     	<p>Las imágenes izquierda y derecha fueron obtenidas desde el simulador Unibotics. Estas imágenes corresponden a la misma escena vista desde dos ángulos ligeramente diferentes, lo que permite generar percepción de profundidad gracias al paralaje.</p>
 
 	<div style="text-align: center; margin-top: 20px;">
-	        <img src="https://raw.githubusercontent.com/PaulaPenaGonzalez/Vision-Robotics-Blog/main/assets/images/ImageLImageR.jpg" 
+	        <img src="https://raw.githubusercontent.com/PaulaPenaGonzalez/Vision-Robotics-Blog/main/assets/images/ImagenLImagenR.jpg" 
 	             alt="Reconstrucción 3D a partir de bordes" 
 	             style="width: 300px; height: auto; border-radius: 8px;">
     	</div>
@@ -73,33 +73,36 @@
     </div>
 
     <!-- Contenido del segundo post -->
-    <div id="post_Dia2_2" class="post-container" style="display: none;">
-	<h1> Detección y selección de puntos característicos </h1>
-        <h2> Objetivo: Cargar y preprocesar las imágenes estéreo capturadas por las dos cámaras calibradas (izquierda y derecha). Fundamental para extraer la información visual relevante que servirá como base para todo el sistema de reconstrucción 3D.</h2>
-        <p>En este segundo día de trabajo, hemos realizado ajustes importantes en la implementación del controlador PID para mejorar la estabilidad y la capacidad del coche para seguir la línea roja en Unibotics.</p>
+    <div id="post_Dia3_3" class="post-container" style="display: none;">
+	<h2> Detección y selección de puntos característicos </h2>
         
-        <h2> Mejoras con respecto al Día 1</h2>
-        <ul>
-            <li><strong>Implementación del Controlador PID:</strong> Se han definido las constantes <code>Kp</code>, <code>Ki</code> y <code>Kd</code> con valores ajustados para una mejor respuesta.</li>
-            <li><strong>Corrección del Giro:</strong> Ahora el coche ajusta su dirección en función de la desviación respecto al centro de la línea roja utilizando OpenCV.</li>
-            <li><strong>Detección de la Línea Mejorada:</strong> Se ha implementado la detección basada en contornos con <code>cv2.findContours</code> para determinar el centro de la línea con mayor precisión.</li>
-            <li><strong>Estrategia de Recuperación:</strong> Se ha añadido una lógica que permite recordar la última dirección detectada cuando la línea desaparece momentáneamente.</li>
-            <li><strong>Visualización del Proceso:</strong> Se ha incorporado <code>GUI.showImage(mask)</code> para visualizar la segmentación de la línea roja en tiempo real.</li>
-        </ul>
+	<p>Uno de los pilares de la reconstrucción 3D a partir de visión estéreo es la <strong>geometría epipolar</strong>. En este post abordamos cómo obtener la línea epipolar en la imagen derecha a partir de un punto característico detectado en la imagen izquierda.</p>
         
-        <h2> Resultados y Observaciones</h2>
-        <p>Gracias a estas mejoras, el coche sigue la línea con mayor precisión. Sin embargo, aún hay margen de mejora en la gestión de la velocidad y la recuperación cuando la línea se pierde completamente.</p>
+	<h3> Retroproyección del punto izquierdo </h3>
+
+	<p>Cada punto característico extraído de la imagen izquierda es transformado a coordenadas del mundo real mediante retroproyección. Para ello, se utiliza la matriz de proyección inversa de la cámara izquierda, proporcionada por la herramienta <code>HAL.backproject</code>.</p>
         
-        <h2> Próximos Pasos</h2>
-        <ul>
-            <li> Ajustar los valores de <code>Kp</code>, <code>Ki</code> y <code>Kd</code> para mejorar la estabilidad.</li>
-            <li> Implementar una estrategia de oscilación para cuando el coche pierda la línea roja.</li>
-            <li> Explorar la posibilidad de controlar la velocidad mediante un PID adicional.</li>
-        </ul>
+        <h3>Vector director del rayo</h3>
+        <p>Con el punto 3D obtenido y la posición de la cámara izquierda, se calcula el vector director del rayo de retroproyección:</p>
+    	<p><code>u = punto_3d - centro_cámara</code></p>
+    	<p>Este vector se normaliza para definir una dirección en el espacio desde el centro de la cámara.</p>
+        
+        <h3>Proyección del rayo en la imagen derecha</h3>
+
+	<p>Se seleccionan dos puntos arbitrarios sobre el rayo en 3D (por ejemplo, a cierta distancia a lo largo del vector director) y se proyectan sobre la imagen derecha utilizando la función <code>HAL.project</code>.</p>
+	<p>Posteriormente, se convierten estas coordenadas proyectadas de espacio óptico a espacio gráfico con <code>HAL.opticalToGrafic</code>.</p>
+	
+	<h3> Cálculo de la línea epipolar</h3>
+	<p>Una vez tenemos los dos puntos proyectados en la imagen derecha, la línea epipolar se calcula como la recta que pasa por ambos:</p>
+	<p><code>line = np.cross(p1_2d, p2_2d)</code></p>
+	<p>Esto nos da los coeficientes <code>(a, b, c)</code> de la recta epipolar en la forma <code>ax + by + c = 0</code>, que se dibujará sobre la imagen derecha para restringir la búsqueda de homólogos a esa línea.</p>
+	
+	<p>Este paso es clave porque reduce el problema de búsqueda 2D a uno 1D: solo buscamos homólogos a lo largo de una línea, lo cual mejora mucho la eficiencia y precisión.</p>
+	
     </div>
 
     <!--Contenido del tercer post -->
-    <div id="post_holonomico_3" class="post-container" style="display: none;">
+    <div id="post_Dia2_2" class="post-container" style="display: none;">
         <h2> ¿Qué significa detectar puntos característicos? </h2>
         <p>En el proceso de reconstrucción 3D, identificar los puntos más relevantes de una imagen es esencial. No todos los píxeles aportan información útil: necesitamos centrarnos en aquellos que definen contornos, estructuras y geometrías bien marcadas en la escena. En este post, abordamos cómo se extraen estos puntos a partir de una imagen ya procesada por un detector de bordes.</p>
         
