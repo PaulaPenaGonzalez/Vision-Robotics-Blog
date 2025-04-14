@@ -73,8 +73,9 @@
     </div>
 
     <!-- Contenido del segundo post -->
-    <div id="post_holonomico_2" class="post-container" style="display: none;">
-        <h2> Seguimiento de Línea con PID en Unibotics - Día 2</h2>
+    <div id="post_Dia2_2" class="post-container" style="display: none;">
+	<h1> Detección y selección de puntos característicos </h1>
+        <h2> Objetivo: Cargar y preprocesar las imágenes estéreo capturadas por las dos cámaras calibradas (izquierda y derecha). Fundamental para extraer la información visual relevante que servirá como base para todo el sistema de reconstrucción 3D.</h2>
         <p>En este segundo día de trabajo, hemos realizado ajustes importantes en la implementación del controlador PID para mejorar la estabilidad y la capacidad del coche para seguir la línea roja en Unibotics.</p>
         
         <h2> Mejoras con respecto al Día 1</h2>
@@ -99,26 +100,16 @@
 
     <!--Contenido del tercer post -->
     <div id="post_holonomico_3" class="post-container" style="display: none;">
-        <h2> Seguimiento de Línea con PID en Unibotics - Día 3</h2>
-        <p>En esta tercera iteración, hemos mejorado la segmentación de la línea roja utilizando un enfoque basado en una franja superior de la imagen. Este cambio nos permite anticiparnos mejor a las curvas.</p>
+        <h2> ¿Qué significa detectar puntos característicos? </h2>
+        <p>En el proceso de reconstrucción 3D, identificar los puntos más relevantes de una imagen es esencial. No todos los píxeles aportan información útil: necesitamos centrarnos en aquellos que definen contornos, estructuras y geometrías bien marcadas en la escena. En este post, abordamos cómo se extraen estos puntos a partir de una imagen ya procesada por un detector de bordes.</p>
         
-        <h2> Mejoras con respecto al Día 2</h2>
-        <ul>
-            <li><strong>Selección de una Franja Superior:</strong> En lugar de analizar toda la imagen, ahora utilizamos solo una ventana en la parte superior, lo que mejora la anticipación en curvas.</li>
-            <li><strong>Reducción de Ruido:</strong> Al enfocarnos en una franja específica, eliminamos información irrelevante que podía afectar el cálculo del centro de la línea.</li>
-            <li><strong>Corrección del PID:</strong> Se ajustaron los parámetros del PID para adaptarse a la nueva estrategia de detección.</li>
-            <li><strong>Visualización de la Máscara:</strong> Se añadió una función para mostrar solo la franja seleccionada, permitiendo depurar mejor el procesamiento de la imagen.</li>
-        </ul>
+        <h2> Selección a partir de bordes detectados </h2>
+	<p>Una vez obtenida la máscara de bordes mediante el detector de Canny, lo que tenemos es una imagen en blanco y negro donde los bordes aparecen marcados en blanco (valor alto). A partir de aquí, el objetivo es localizar las coordenadas de estos píxeles blancos que representan los contornos más significativos.
+
+Para ello, se recorre la imagen buscando todas las posiciones en las que el valor del píxel supere cierto umbral (en este caso, simplemente donde el valor es mayor que cero). Esto nos devuelve las coordenadas (x, y) de los bordes relevantes. Así se construye una lista de puntos que actuarán como candidatos para buscar correspondencias entre imágenes izquierda y derecha.</p>
         
-        <h2> Resultados y Observaciones</h2>
-        <p>Con esta mejora, el coche ahora reacciona con mayor antelación a las curvas, reduciendo la oscilación y mejorando la estabilidad en el seguimiento de la línea. Sin embargo, todavía debemos ajustar los valores del PID para optimizar la respuesta en curvas más cerradas.</p>
-        
-        <h2> Próximos Pasos</h2>
-        <ul>
-            <li> Seguir ajustando los valores del PID para mejorar la estabilidad.</li>
-            <li> Explorar la posibilidad de un PID adaptativo que ajuste su comportamiento en tiempo real.</li>
-            <li> Implementar una estrategia de búsqueda más eficiente cuando el coche pierda la línea.</li>
-        </ul>
+        <h2> Un pequeño extra </h2>
+        <p>Durante las pruebas, se decidió no procesar todos los puntos a la vez, sino seleccionar uno de cada pocos (por ejemplo, cada tres puntos). Esto ayuda a mantener el rendimiento y obtener una nube de puntos más limpia y distribuida de forma uniforme. Con esta lista de puntos característica ya lista, estamos preparados para pasar al siguiente paso: proyectar cada uno de ellos y buscar su homólogo en la segunda imagen </p>
         
     </div>
 
