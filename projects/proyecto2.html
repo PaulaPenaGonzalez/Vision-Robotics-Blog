@@ -183,26 +183,27 @@
     </div>
 
     <!-- Contenido del sexto post -->
-    <div id="post_holonomico_6" class="post-container" style="display: none;">
-        <h2> Seguimiento de Línea con PID en Unibotics - Día 6</h2>
-        <p>En esta nueva iteración, hemos refinado aún más el control del vehículo para mejorar su estabilidad y anticipación en las curvas.</p>
-        
-        <h2> Mejoras con respecto al Día 5</h2>
-        <ul>
-            <li><strong>Implementación de una franja más elevada:</strong> Ahora el coche analiza la línea roja en una franja aún más alta, permitiéndole anticiparse mejor a las curvas.</li>
-            <li><strong>Optimización de la velocidad:</strong> Se ha ajustado el PID de velocidad para permitir una mejor respuesta en curvas y en rectas.</li>
-            <li><strong>Nuevo cálculo de ángulo:</strong> Se ha añadido un método para calcular la inclinación de la línea roja a partir de dos puntos de referencia.</li>
-            <li><strong>Ajustes en la lógica de recuperación:</strong> El sistema de búsqueda oscilante se ha refinado para evitar pérdidas innecesarias de tiempo cuando la línea se pierde momentáneamente.</li>
-        </ul>
-        
-        <h2> Resultados y Observaciones</h2>
-        <p>Con estas mejoras, el coche mantiene una mayor estabilidad y reacciona de manera más precisa ante cambios en la trayectoria.</p>
-        
-        <h2> Próximos Pasos</h2>
-        <ul>
-            <li> Ajustar los valores del PID para mejorar la respuesta en entornos más dinámicos.</li>
-            <li> Implementar un modelo de predicción para anticipar cambios bruscos en la dirección.</li>
-        </ul>
+    <div id="post_Dia6_6" class="post-container" style="display: none;">
+        <h2> Proyección y visualización </h2>
+	
+        <p>Tras obtener la posición 3D de un punto mediante triangulación, el siguiente paso fue representarlo de forma visual dentro del entorno. Para ello, se empleó el visor 3D de Unibotics como herramienta de visualización.</p>
+
+	<h3>Conversión de unidades</h3>
+  	<p>Como las posiciones reconstruidas están en milímetros (debido a la escala de las cámaras), fue necesario dividir por 100 para convertirlas a decímetros. Esto permite una visualización adecuada y proporcional dentro del entorno virtual.</p>
+
+	<h3>Coloración de los puntos</h3>
+	<p>Cada punto 3D se visualiza no solo por su posición, sino también por el color extraído del píxel izquierdo original. Este detalle aporta riqueza visual a la nube de puntos, ya que cada uno conserva la tonalidad del objeto real que lo originó.</p>
+	<ul>
+	    <li>Se accede al color del píxel en la imagen izquierda (usualmente en formato BGR).</li>
+	    <li>Se convierte a RGB para usarlo correctamente en el visor.</li>
+	    <li>Se construye una tupla con la forma <code>(x, y, z, r, g, b)</code>.</li>
+	</ul>
+
+	<h3>Visualización en el entorno 3D</h3>
+  	<p>Con la posición ajustada y el color asociado, cada punto se envía al visor con la función <code>GUI.ShowNewPoints()</code>. Así, la nube de puntos 3D se va formando de forma interactiva, punto a punto, representando fielmente la geometría y el aspecto de la escena original.</p>
+
+  	<p>Este paso permite validar visualmente la reconstrucción y ajustar parámetros si se detectan errores en la escala, el color o la alineación de los puntos generados.</p>
+
     </div>
 
     <!-- Contenido del séptimo post -->
