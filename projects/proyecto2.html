@@ -31,27 +31,24 @@
 
     <div class="container">
         <h2>Publicaciones - Reconstrucción 3D</h2>
-        <button onclick="mostrarPost('Día 1', 1)"> Primer post:Preparación inicial y lectura de imágenes </button>
-        <button onclick="mostrarPost('Día 2', 2)"> Segundo post: Detección y selección de puntos característicos</button>
-        <button onclick="mostrarPost('Día 3', 3)"> Tercer post: Cálculo de la línea epipolar </button>
-        <button onclick="mostrarPost('Día 4', 4)"> Cuarto post: Emparejamiento por correlación (búsqueda de homólogos) </button>
-	<button onclick="mostrarPost('Día 5', 5)"> Quinto post: Triangulación del punto 3D </button>
-	<button onclick="mostrarPost('Día 6', 6)"> Sexto post: Proyección y visualización </button>
-	<button onclick="mostrarPost('Día 7', 6)"> Séptimo post: Limpieza y refinamiento </button>
+        <button onclick="mostrarPost('Dia1', 1)"> Primer post </button>
+        <button onclick="mostrarPost('Dia2', 2)"> Segundo post: Detección y selección de puntos característicos</button>
+        <button onclick="mostrarPost('Dia3', 3)"> Tercer post: Cálculo de la línea epipolar </button>
+        <button onclick="mostrarPost('Dia4', 4)"> Cuarto post: Emparejamiento por correlación (búsqueda de homólogos) </button>
+	<button onclick="mostrarPost('Dia5', 5)"> Quinto post: Triangulación del punto 3D </button>
+	<button onclick="mostrarPost('Dia6', 6)"> Sexto post: Proyección y visualización </button>
+	<button onclick="mostrarPost('Dia7', 6)"> Séptimo post: Limpieza y refinamiento </button>
     </div>
 
     <!-- Contenido del primer post -->
-    <div id="Preparación inicial y lectura de imágenes" class="post-container" style="display: none;">
-    	<h2>Objetivo: Seguimiento de una Línea Roja en Unibotics con un Coche de Fórmula 1</h2>
+    <div id="Dia1" class="post-container" style="display: none;">
+	<h1> Preparación inicial y lectura de imágenes </h1>
+    	<h2> Objetivo: Cargar y preprocesar las imágenes estéreo capturadas por las dos cámaras calibradas (izquierda y derecha). Fundamental para extraer la información visual relevante que servirá como base para todo el sistema de reconstrucción 3D.</h2>
 
-    	<h3>1️⃣ Enfoque Inicial: Decisiones Discretas</h3>
-    	<p>El primer enfoque se basó en establecer una velocidad constante y detectar la posición de la línea roja en la imagen a cada instante:</p>
-    	<ul>
-        	<li> Si la línea está a la izquierda, girar a la izquierda.</li>
-        	<li> Si la línea está a la derecha, girar a la derecha.</li>
-        	<li> Si la línea está centrada, avanzar recto.</li>
-        	<li> Si no se detecta la línea, seguir la última dirección o realizar búsqueda oscilante.</li>
-    	</ul>
+    	<h3>🖼️ Captura de Imágenes</h3>
+
+    	<p>Las imágenes izquierda y derecha fueron obtenidas desde el simulador Unibotics. Estas imágenes corresponden a la misma escena vista desde dos ángulos ligeramente diferentes, lo que permite generar percepción de profundidad gracias al paralaje.
+</p>
 
     	<h3>2️⃣ Mejorando la Precisión con un Controlador PID</h3>
     	<p>Para mejorar el seguimiento, se integró un <strong>controlador PID</strong> para ajustar el giro del coche de manera progresiva.</p>
