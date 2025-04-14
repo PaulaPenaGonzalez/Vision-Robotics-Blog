@@ -36,8 +36,8 @@
         <button onclick="mostrarPost('Dia3', 3)"> Tercer post</button>
         <button onclick="mostrarPost('Dia4', 4)"> Cuarto post</button>
 	<button onclick="mostrarPost('Dia5', 5)"> Quinto post</button>
-	<button onclick="mostrarPost('Dia6', 6)"> Sexto post: Proyección y visualización </button>
-	<button onclick="mostrarPost('Dia7', 6)"> Séptimo post: Limpieza y refinamiento </button>
+	<button onclick="mostrarPost('Dia6', 6)"> Sexto post</button>
+	<button onclick="mostrarPost('Dia7', 6)"> Séptimo post</button>
     </div>
 
     <!-- Contenido del primer post -->
@@ -207,25 +207,25 @@
     </div>
 
     <!-- Contenido del séptimo post -->
-    <div id="post_holonomico_7" class="post-container" style="display: none;">
-        <h2> Seguimiento de Línea con PID en Unibotics - Día 7</h2>
-        <p>En esta iteración, hemos introducido mejoras significativas en la detección de la línea roja y en la gestión de la velocidad del coche. Se ha refinado la forma en que se calcula el error para la velocidad y la corrección del volante.</p>
-        
-        <h2> Mejoras con respecto al Día 6</h2>
-        <ul>
-            <li><strong>Se sigue con la misma estrategia de cálculo de velocidad:</strong> Se basa en la inclinación de la línea en dos franjas de la imagen, permitiendo detectar curvas con mayor anticipación.</li>
-            <li><strong>Optimización del PID del Volante:</strong> Ajustamos los valores de Kp, Ki y Kd para mejorar la respuesta del coche en curvas más cerradas.</li>
-            <li><strong>Selección más precisa de franjas para detección:</strong> Se ajustaron los valores de recorte en la imagen para detectar mejor la posición de la línea.</li>
-        </ul>
-        
-        <h2> Resultados y Observaciones</h2>
-        <p>El coche ahora tiene una mejor estabilidad y anticipación en curvas. La detección basada en la inclinación de la línea ha reducido la oscilación en rectas y ha mejorado la adaptación de la velocidad.</p>
-        
-        <h2> Próximos Pasos</h2>
-        <ul>
-            <li> Refinar aún más los valores del PID para mejorar la suavidad de la conducción.</li>
-            <li> Implementar una recuperación más agresiva cuando el coche pierde completamente la línea.</li>
-        </ul>
+    <div id="post_Dia7_7" class="post-container" style="display: none;">
+        <h2> Limpieza y refinamiento </h2>
+        <p>Una vez generada la nube de puntos 3D, el siguiente paso fundamental fue su depuración. La reconstrucción puede incluir puntos erróneos u outliers debido a emparejamientos incorrectos, ruido o geometrías mal trianguladas.</p>
+
+	<h3>Filtrado por distancia entre rayos</h3>
+ 	<p>Durante la triangulación, se calculó la distancia entre los rayos de retroproyección de cada cámara. Si esta distancia era demasiado grande, se consideraba que los rayos no se cruzaban de forma fiable, y el punto 3D correspondiente se descartaba.</p>
+
+	<h3>🔭 Umbral sobre los parámetros de triangulación <code>t</code> y <code>s</code></h3>
+	<p>
+	        Otro criterio de validación consistió en comprobar que los parámetros <code>t</code> y <code>s</code> obtenidos durante
+	        la resolución del sistema de triangulación fueran positivos y estuvieran dentro de un rango aceptable.
+	        Estos valores determinan la posición del punto a lo largo de los rayos, por lo que si son negativos o extremadamente grandes,
+	        significa que el punto reconstruido estaría fuera del campo visual de la escena.
+	</p>
+	
+	<p>
+	        Gracias a la incorporación de estos dos filtros, la nube de puntos final presenta una geometría mucho más coherente y limpia,
+	        facilitando su análisis visual y reduciendo significativamente los outliers.
+	</p>
     </div>
 
     <!-- Contenido del octavo post -->
