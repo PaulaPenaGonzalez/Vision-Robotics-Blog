@@ -49,12 +49,23 @@
 
     	<p>Las imágenes izquierda y derecha fueron obtenidas desde el simulador Unibotics. Estas imágenes corresponden a la misma escena vista desde dos ángulos ligeramente diferentes, lo que permite generar percepción de profundidad gracias al paralaje.</p>
 
+	<div style="text-align: center; margin-top: 20px;">
+	        <img src="https://raw.githubusercontent.com/PaulaPenaGonzalez/Vision-Robotics-Blog/main/assets/images/ImageLImageR.jpg" 
+	             alt="Reconstrucción 3D a partir de bordes" 
+	             style="width: 300px; height: auto; border-radius: 8px;">
+    	</div>
+	    
     	<h3> Conversión a Escala de Grises</h3>
     	<p> Para simplificar el análisis visual y reducir la carga computacional, se realizó una conversión de las imágenes a escala de grises. Esto permite centrarse en la estructura de la escena sin que el color interfiera en las operaciones iniciales como la detección de bordes.</p>
 
     	<h3>Detección de Bordes</h3>
 	<p>La etapa clave en este punto fue aplicar un detector de bordes, específicamente el método de Canny. Esta técnica resalta los contornos y líneas más relevantes de la escena, permitiendo identificar los puntos característicos que luego se utilizarán para hallar correspondencias entre ambas imágenes. Se hizo un ajuste manual de los parámetros del detector para encontrar un equilibrio entre sensibilidad (captar todos los bordes importantes) y robustez (evitar bordes producidos por ruido o detalles irrelevantes).</p>
-    	
+
+	<div style="text-align: center; margin-top: 20px;">
+	        <img src="https://raw.githubusercontent.com/PaulaPenaGonzalez/Vision-Robotics-Blog/main/assets/images/Bordes.jpg" 
+	             alt="Reconstrucción 3D a partir de bordes" 
+	             style="width: 300px; height: auto; border-radius: 8px;">
+    	</div>
 
     	<h3>Visualización y Verificación</h3>
     	<p>Una vez obtenidas las máscaras de bordes, se visualizaron ambas imágenes con sus respectivos contornos resaltados. Esto ayudó a comprobar que los parámetros elegidos proporcionaban una buena base para continuar con la reconstrucción.</p>
