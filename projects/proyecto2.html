@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto 1 - Detección de Bordes</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <header>
+        <h1>Control de un F1 🏎️ </h1>
+        <p>Progreso y avances de este proyecto.</p>
+    </header>
+
+    <!-- Introducción antes de las publicaciones -->
+    <div class="container">
+    	<p>
+        	Este proyecto explora la aplicación de visión por computadora para el seguimiento de líneas en un coche de Fórmula 1 dentro del entorno de Unibotics. A lo largo de su desarrollo, hemos implementado diferentes estrategias de control, desde decisiones discretas hasta el uso de un controlador PID. 
+    	</p>
+    	<p>
+        A continuación, puedes leer las publicaciones relacionadas con este proyecto, donde se detallan los avances, problemas encontrados y soluciones aplicadas. 
+    	</p>
+    </div>
+
+
+    <div class="container">
+         <h2>Publicaciones - Coche Holonómico</h2>
+    	 <button onclick="mostrarPost('holonomico', 1)"> Primer post: Fase 1</button>
+    	 <button onclick="mostrarPost('holonomico', 2)"> Segundo post: Fase 2</button>
+	 <button onclick="mostrarPost('holonomico', 3)"> Tercer post: Fase 3</button>
+	 <button onclick="mostrarPost('holonomico', 4)"> Cuarto post: Fase 4</button>
+	 <button onclick="mostrarPost('holonomico', 5)"> Quinto post: Fase 5</button>
+	 <button onclick="mostrarPost('holonomico', 6)"> Sexto post: Fase 6</button>
+	 <button onclick="mostrarPost('holonomico', 7)"> Séptimo post: Fase 7</button>
+	 <button onclick="mostrarPost('holonomico', 8)"> Octavo post: Fase 8</button>
+    </div>
+
+    <div class="container">
+        <h2>Publicaciones - Coche Ackerman</h2>
+        <button onclick="mostrarPost('ackerman', 1)"> Primer post: Configuración Inicial</button>
+        <button onclick="mostrarPost('ackerman', 2)"> Segundo post: Simplificación del Cálculo del Error</button>
+        <button onclick="mostrarPost('ackerman', 3)"> Tercer post: Introducción de la Banda Muerta</button>
+        <button onclick="mostrarPost('ackerman', 4)"> Cuarto post: Pruebas Finales</button>
+    </div>
+
+    <!-- Contenido del primer post -->
+    <div id="post_holonomico_1" class="post-container" style="display: none;">
+    	<h2>Objetivo: Seguimiento de una Línea Roja en Unibotics con un Coche de Fórmula 1</h2>
+
+    	<h3>1️⃣ Enfoque Inicial: Decisiones Discretas</h3>
+    	<p>El primer enfoque se basó en establecer una velocidad constante y detectar la posición de la línea roja en la imagen a cada instante:</p>
+    	<ul>
+        	<li> Si la línea está a la izquierda, girar a la izquierda.</li>
+        	<li> Si la línea está a la derecha, girar a la derecha.</li>
+        	<li> Si la línea está centrada, avanzar recto.</li>
+        	<li> Si no se detecta la línea, seguir la última dirección o realizar búsqueda oscilante.</li>
+    	</ul>
+
+    	<h3>2️⃣ Mejorando la Precisión con un Controlador PID</h3>
+    	<p>Para mejorar el seguimiento, se integró un <strong>controlador PID</strong> para ajustar el giro del coche de manera progresiva.</p>
+
+    	<h4>📝 Concepto del PID</h4>
+    	<ul>
+        	<li><strong>Componente Proporcional (P):</strong> Ajusta la dirección según la desviación respecto a la línea.</li>
+        	<li><strong>Componente Integral (I):</strong> Compensa errores acumulados en el tiempo.</li>
+        	<li><strong>Componente Derivativo (D):</strong> Reduce oscilaciones corrigiendo cambios bruscos.</li>
+    	</ul>
+
+    	<h3>3️⃣ Problemas Encontrados y Soluciones</h3>
+    	<h4>🛠️ Errores con OpenCV (`cv2`)</h4>
+	<p>Al ejecutar el código en Unibotics, se encontraron errores indicando que OpenCV (<code>cv2</code>) no estaba funcionando correctamente. Para solucionarlo:</p>
+
+	<ol>
+    		<li><strong>Se verificó si OpenCV está instalado</strong> ejecutando:</li>
+    		<pre><code>
+import cv2
+print(cv2.__version__)
+    		</code></pre>
+
+    		<li><strong>Se intentó usar <code>opencv-python-headless</code></strong> en caso de falta de soporte gráfico:</li>
+    		<pre><code>
+pip install opencv-python-headless
+    		</code></pre>
+
+    		<li><strong>Se probó una importación alternativa</strong> en caso de problemas de compatibilidad, lo que finalmente solucionó el problema:</li>
+    		<pre><code>
+import cv2.cv2 as cv2
+    		</code></pre>
+	</ol>
+    	
+    	<h4>⚙️ Variables Globales en Python</h4>
+    	<p>Para manejar el historial de errores en el controlador PID:</p>
+    	<ul>
+        	<li> Se definen `error_anterior` e `integral` fuera de la función.</li>
+        	<li> Se usa `global error_anterior, integral` dentro de la función.</li>
+    	</ul>
+	
+	<h4>⚙️Valores de las constantes en el controlador PID y reacción del sistema.<</h4>
+        <p>Para los siguientes valores del controlador PID:</p>
+        <ul>  
+                <li>kp = 0.005 </l$               
+		<li>ki = 0.0001 </$
+		<li>kd = 0.002 </$        
+	</ul>
+
+    	<h3>4️⃣ Resultados y Conclusiones</h3>
+    	<p>Comparando ambos enfoques:</p>
+    	<ul>
+        	<li>✅ El método de decisiones discretas es fácil de implementar, pero menos preciso.</li>
+        	<li>✅ El controlador PID mejora la estabilidad y permite un movimiento fluido en el circuito.</li>
+    	</ul>
+
+    	<h3>5️⃣ Próximos Pasos</h3>
+    	<ul>
+        	<li> Ajustar los valores de <strong>Kp, Ki y Kd</strong> para optimizar el PID.</li>
+        	<li> Agregar detección de obstáculos para evitar colisiones.</li>
+        	<li> Implementar una estrategia de recuperación si la línea se pierde.</li>
+    	</ul>
+
+    </div>
+
+    <!-- Contenido del segundo post -->
+    <div id="post_holonomico_2" class="post-container" style="display: none;">
+        <h2> Seguimiento de Línea con PID en Unibotics - Día 2</h2>
+        <p>En este segundo día de trabajo, hemos realizado ajustes importantes en la implementación del controlador PID para mejorar la estabilidad y la capacidad del coche para seguir la línea roja en Unibotics.</p>
+        
+        <h2> Mejoras con respecto al Día 1</h2>
+        <ul>
+            <li><strong>Implementación del Controlador PID:</strong> Se han definido las constantes <code>Kp</code>, <code>Ki</code> y <code>Kd</code> con valores ajustados para una mejor respuesta.</li>
+            <li><strong>Corrección del Giro:</strong> Ahora el coche ajusta su dirección en función de la desviación respecto al centro de la línea roja utilizando OpenCV.</li>
+            <li><strong>Detección de la Línea Mejorada:</strong> Se ha implementado la detección basada en contornos con <code>cv2.findContours</code> para determinar el centro de la línea con mayor precisión.</li>
+            <li><strong>Estrategia de Recuperación:</strong> Se ha añadido una lógica que permite recordar la última dirección detectada cuando la línea desaparece momentáneamente.</li>
+            <li><strong>Visualización del Proceso:</strong> Se ha incorporado <code>GUI.showImage(mask)</code> para visualizar la segmentación de la línea roja en tiempo real.</li>
+        </ul>
+        
+        <h2> Resultados y Observaciones</h2>
+        <p>Gracias a estas mejoras, el coche sigue la línea con mayor precisión. Sin embargo, aún hay margen de mejora en la gestión de la velocidad y la recuperación cuando la línea se pierde completamente.</p>
+        
+        <h2> Próximos Pasos</h2>
+        <ul>
+            <li> Ajustar los valores de <code>Kp</code>, <code>Ki</code> y <code>Kd</code> para mejorar la estabilidad.</li>
+            <li> Implementar una estrategia de oscilación para cuando el coche pierda la línea roja.</li>
+            <li> Explorar la posibilidad de controlar la velocidad mediante un PID adicional.</li>
+        </ul>
+    </div>
+
+    <!--Contenido del tercer post -->
+    <div id="post_holonomico_3" class="post-container" style="display: none;">
+        <h2> Seguimiento de Línea con PID en Unibotics - Día 3</h2>
+        <p>En esta tercera iteración, hemos mejorado la segmentación de la línea roja utilizando un enfoque basado en una franja superior de la imagen. Este cambio nos permite anticiparnos mejor a las curvas.</p>
+        
+        <h2> Mejoras con respecto al Día 2</h2>
+        <ul>
+            <li><strong>Selección de una Franja Superior:</strong> En lugar de analizar toda la imagen, ahora utilizamos solo una ventana en la parte superior, lo que mejora la anticipación en curvas.</li>
+            <li><strong>Reducción de Ruido:</strong> Al enfocarnos en una franja específica, eliminamos información irrelevante que podía afectar el cálculo del centro de la línea.</li>
+            <li><strong>Corrección del PID:</strong> Se ajustaron los parámetros del PID para adaptarse a la nueva estrategia de detección.</li>
+            <li><strong>Visualización de la Máscara:</strong> Se añadió una función para mostrar solo la franja seleccionada, permitiendo depurar mejor el procesamiento de la imagen.</li>
+        </ul>
+        
+        <h2> Resultados y Observaciones</h2>
+        <p>Con esta mejora, el coche ahora reacciona con mayor antelación a las curvas, reduciendo la oscilación y mejorando la estabilidad en el seguimiento de la línea. Sin embargo, todavía debemos ajustar los valores del PID para optimizar la respuesta en curvas más cerradas.</p>
+        
+        <h2> Próximos Pasos</h2>
+        <ul>
+            <li> Seguir ajustando los valores del PID para mejorar la estabilidad.</li>
+            <li> Explorar la posibilidad de un PID adaptativo que ajuste su comportamiento en tiempo real.</li>
+            <li> Implementar una estrategia de búsqueda más eficiente cuando el coche pierda la línea.</li>
+        </ul>
+        
+    </div>
+
+    <!-- Contenido del cuarto post -->
+    <div id="post_holonomico_4" class="post-container" style="display: none;">
+        <h2> Seguimiento de Línea con PID en Unibotics - Día 4</h2>
+        <p>En esta iteración, hemos introducido un controlador PID adicional para gestionar la velocidad del coche. Ahora, el coche no solo sigue la línea con precisión, sino que también ajusta su velocidad en función de la curvatura de la pista.</p>
+        
+        <h2> Mejoras con respecto al Día 3</h2>
+        <ul>
+            <li><strong>PID para la Velocidad:</strong> Implementamos un segundo controlador PID que reduce la velocidad cuando el coche entra en curvas y la aumenta en rectas.</li>
+            <li><strong>Optimización del PID del Volante:</strong> Ajustamos los valores de Kp, Ki y Kd para mejorar la respuesta del coche en curvas.</li>
+            <li><strong>Segmentación Refinada:</strong> Se sigue usando la franja superior de la imagen, pero se ha ajustado el porcentaje de recorte para mejorar la detección.</li>
+            <li><strong>Estrategia de Recuperación Mejorada:</strong> Ahora el coche alterna entre búsqueda oscilante y recuperación de la última dirección conocida cuando pierde la línea.</li>
+        </ul>
+        
+        <h2> Resultados y Observaciones</h2>
+        <p>Gracias a la nueva implementación del PID de velocidad, el coche mantiene una conducción más fluida y optimizada, reduciendo la inestabilidad en curvas. Aun así, todavía hay margen de mejora en la calibración del PID para minimizar oscilaciones en rectas.</p>
+        
+        <h2> Próximos Pasos</h2>
+        <ul>
+            <li> Refinar aún más los valores del PID para obtener una respuesta más natural.</li>
+            <li> Explorar métodos de predicción de curvas para anticipar mejor los cambios de dirección.</li>
+            <li> Optimizar la lógica de recuperación cuando el coche pierde la línea.</li>
+        </ul>
+    </div>
+
+    <!-- Contenido del quinto post -->
+    <div id="post_holonomico_5" class="post-container" style="display: none;">
+        <h2> Seguimiento de Línea con PID en Unibotics - Día 5</h2>
+        <p>En esta iteración, hemos optimizado el controlador PID de velocidad para mejorar la estabilidad del coche en curvas largas y evitar frenados bruscos.</p>
+        
+        <h2> Mejoras con respecto al Día 4</h2>
+        <ul>
+            <li><strong>Optimización del PID de velocidad:</strong> Se ha ajustado la ganancia derivativa (<code>Kd_v</code>) para suavizar la transición entre rectas y curvas.</li>
+            <li><strong>Control más gradual:</strong> Ahora la reducción de velocidad en curvas largas es menos abrupta, lo que mejora la estabilidad.</li>
+            <li><strong>Mejor respuesta en cambios de dirección:</strong> Se ha refinado el cálculo del error para que el coche se ajuste de forma más progresiva.</li>
+            <li><strong>Estrategia de recuperación mejorada:</strong> Se han hecho ajustes en la lógica de búsqueda cuando el coche pierde la línea.</li>
+        </ul>
+        
+        <h2> Resultados y Observaciones</h2>
+        <p>Los nuevos ajustes han mejorado la estabilidad general del coche, reduciendo las oscilaciones en rectas y mejorando el comportamiento en curvas. Sin embargo, aún es necesario afinar la calibración del PID para optimizar la respuesta en distintos tipos de curvas.</p>
+        
+        <h2> Próximos Pasos</h2>
+        <ul>
+            <li> Ajustar los valores de PID para una conducción aún más fluida.</li>
+            <li> Explorar métodos avanzados para predecir curvas y mejorar la anticipación.</li>
+            <li> Implementar estrategias adicionales para mejorar la estabilidad a altas velocidades.</li>
+        </ul>
+    </div>
+
+    <!-- Contenido del sexto post -->
+    <div id="post_holonomico_6" class="post-container" style="display: none;">
+        <h2> Seguimiento de Línea con PID en Unibotics - Día 6</h2>
+        <p>En esta nueva iteración, hemos refinado aún más el control del vehículo para mejorar su estabilidad y anticipación en las curvas.</p>
+        
+        <h2> Mejoras con respecto al Día 5</h2>
+        <ul>
+            <li><strong>Implementación de una franja más elevada:</strong> Ahora el coche analiza la línea roja en una franja aún más alta, permitiéndole anticiparse mejor a las curvas.</li>
+            <li><strong>Optimización de la velocidad:</strong> Se ha ajustado el PID de velocidad para permitir una mejor respuesta en curvas y en rectas.</li>
+            <li><strong>Nuevo cálculo de ángulo:</strong> Se ha añadido un método para calcular la inclinación de la línea roja a partir de dos puntos de referencia.</li>
+            <li><strong>Ajustes en la lógica de recuperación:</strong> El sistema de búsqueda oscilante se ha refinado para evitar pérdidas innecesarias de tiempo cuando la línea se pierde momentáneamente.</li>
+        </ul>
+        
+        <h2> Resultados y Observaciones</h2>
+        <p>Con estas mejoras, el coche mantiene una mayor estabilidad y reacciona de manera más precisa ante cambios en la trayectoria.</p>
+        
+        <h2> Próximos Pasos</h2>
+        <ul>
+            <li> Ajustar los valores del PID para mejorar la respuesta en entornos más dinámicos.</li>
+            <li> Implementar un modelo de predicción para anticipar cambios bruscos en la dirección.</li>
+        </ul>
+    </div>
+
+    <!-- Contenido del séptimo post -->
+    <div id="post_holonomico_7" class="post-container" style="display: none;">
+        <h2> Seguimiento de Línea con PID en Unibotics - Día 7</h2>
+        <p>En esta iteración, hemos introducido mejoras significativas en la detección de la línea roja y en la gestión de la velocidad del coche. Se ha refinado la forma en que se calcula el error para la velocidad y la corrección del volante.</p>
+        
+        <h2> Mejoras con respecto al Día 6</h2>
+        <ul>
+            <li><strong>Se sigue con la misma estrategia de cálculo de velocidad:</strong> Se basa en la inclinación de la línea en dos franjas de la imagen, permitiendo detectar curvas con mayor anticipación.</li>
+            <li><strong>Optimización del PID del Volante:</strong> Ajustamos los valores de Kp, Ki y Kd para mejorar la respuesta del coche en curvas más cerradas.</li>
+            <li><strong>Selección más precisa de franjas para detección:</strong> Se ajustaron los valores de recorte en la imagen para detectar mejor la posición de la línea.</li>
+        </ul>
+        
+        <h2> Resultados y Observaciones</h2>
+        <p>El coche ahora tiene una mejor estabilidad y anticipación en curvas. La detección basada en la inclinación de la línea ha reducido la oscilación en rectas y ha mejorado la adaptación de la velocidad.</p>
+        
+        <h2> Próximos Pasos</h2>
+        <ul>
+            <li> Refinar aún más los valores del PID para mejorar la suavidad de la conducción.</li>
+            <li> Implementar una recuperación más agresiva cuando el coche pierde completamente la línea.</li>
+        </ul>
+    </div>
+
+    <!-- Contenido del octavo post -->
+    <div id="post_holonomico_8" class="post-container" style="display: none;">
+        <h2> Versión Final del Controlador PID - Día 8</h2>
+        <p>Tras múltiples iteraciones y pruebas, hemos llegado a la versión final del controlador PID para el coche holonómico en Unibotics. Se intentó volver a la implementación basada en la diferencia entre el centroide y el centro del frame, pero la estrategia basada en el ángulo de inclinación de la línea resultó ser la más estable.</p>
+        
+        <h2> Mejoras finales en el controlador PID</h2>
+        <ul>
+            <li><strong>Optimización de valores de PID:</strong> Se realizaron ajustes finos a <code>Kp</code>, <code>Ki</code> y <code>Kd</code> tanto en el control del volante como en la velocidad, logrando una respuesta más suave y precisa.</li>
+            <li><strong>Uso de la inclinación de la línea roja:</strong> Se mantiene el cálculo del error a partir de la inclinación de la línea en diferentes franjas, lo que mejora la estabilidad en curvas.</li>
+            <li><strong>Corrección de velocidad con PID:</strong> La velocidad ahora se ajusta de manera dinámica en función del ángulo de la línea, lo que evita frenadas bruscas y mejora la fluidez.</li>
+            <li><strong>Estrategia de búsqueda refinada:</strong> Se mejoró la lógica de recuperación cuando el coche pierde la línea, aumentando la eficiencia en la reorientación.</li>
+        </ul>
+
+	<h2> Resultado Final: Coche Holonómico - Día 8</h2>
+        <p>Este es el resultado final de nuestro coche holonómico tras todas las iteraciones y ajustes del controlador PID.</p>
+        <p>Después de varias pruebas y ajustes, logramos optimizar la respuesta del coche, asegurando una estabilidad adecuada en el seguimiento de la línea roja. A continuación, puedes ver el resultado final en acción:</p>
+        
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/ag51oN5cGHg" frameborder="0" allowfullscreen></iframe>
+
+	<p>Se logró la estabilidad del control del coche para una velocidad máxima del móvil de 15 m/s y mínima de 7 m/s, alcanzando la vuelta completa en 73 segundos. 
+	
+        <h2> Observaciones Finales</h2>
+        <p>Con estos ajustes, el coche ahora sigue la línea roja con alta precisión y estabilidad. La estrategia basada en el ángulo ha demostrado ser más efectiva que la basada en la posición del centroide, permitiendo mejor anticipación en curvas y una conducción más fluida.</p>
+        
+        <h2> Conclusión y Próximos Pasos</h2>
+        <ul>
+            <li> Implementar una versión mejorada del control para coches Ackerman.</li>
+            <li> Explorar el uso de redes neuronales o algoritmos de aprendizaje automático para mejorar la predicción del camino.</li>
+            <li> Integrar detección de obstáculos y ajustes en tiempo real.</li>
+        </ul>
+        
+        <p>💬 ¡Este ha sido un gran avance en el control del coche holonómico! ¿Qué opinas de los resultados? 🚀</p>
+    </div>
+
+    <!-- Contenido del primer post sobre el coche Ackerman -->
+    <div id="post_ackerman_1" class="post-container" style="display: none;">
+        <h2> Introducción al Coche Ackerman - Primera Iteración</h2>
+        <p>Después de haber implementado exitosamente el controlador PID para el coche holonómico, hemos decidido adaptar este sistema para el coche tipo Ackerman. Esto nos permitirá evaluar cómo el control PID se comporta en un sistema con restricciones en la dirección.</p>
+        
+        <h2> Principales diferencias con el coche holonómico</h2>
+        <ul>
+            <li><strong>Sistema de dirección restringida:</strong> A diferencia del holonómico, el coche Ackerman solo puede girar cambiando el ángulo de las ruedas delanteras.</li>
+            <li><strong>Adaptación del PID:</strong> Se ajustaron las constantes del PID para manejar mejor la dinámica del Ackerman.</li>
+            <li><strong>Manejo de velocidad optimizado:</strong> La velocidad ahora se adapta en función de la curvatura detectada para evitar derrapes.</li>
+        </ul>
+        
+        <h2> Implementación inicial</h2>
+        <p>En esta primera iteración, hemos mantenido la estrategia de detección de la línea roja usando OpenCV y segmentación en HSV. También implementamos el cálculo de la inclinación de la línea para ajustar la velocidad en tiempo real.</p>
+        
+        <h2> Próximos pasos</h2>
+        <ul>
+            <li> Refinar los valores del PID para mejorar la respuesta del coche en curvas cerradas.</li>
+            <li> Implementar una estrategia de recuperación en caso de que el coche pierda la línea.</li>
+            <li> Ajustar el modelo para mejorar la estabilidad en rectas y transiciones suaves en curvas.</li>
+        </ul>      
+    </div>
+
+    <!-- Contenido del segundo post sobre el coche Ackerman -->
+    <div id="post_ackerman_2" class="post-container" style="display: none;">
+        <h2> Simplificación del Cálculo del Error - Segunda Iteración</h2>
+        <p>En esta nueva versión del controlador PID para el coche Ackerman, hemos realizado un cambio significativo en la forma en la que calculamos el error para la corrección de dirección y velocidad.</p>
+        
+        <h2> Principales Cambios</h2>
+        <ul>
+            <li><strong>Eliminación del cálculo basado en la inclinación de la línea:</strong> Ahora solo se mide la diferencia del centro de la línea con el centro del frame.</li>
+            <li><strong>Simplificación del código:</strong> Se redujo la cantidad de cálculos, lo que mejora la eficiencia y estabilidad del sistema.</li>
+            <li><strong>PID más controlado:</strong> Ajustamos los valores del PID para reducir oscilaciones innecesarias.</li>
+        </ul>
+        
+        <h2> Efectos de este Cambio</h2>
+        <p>Gracias a esta simplificación, el código ahora es más ligero y eficiente. Sin embargo, esto también significa que el coche podría ser menos preciso en curvas cerradas, ya que no anticipa cambios de dirección mediante la inclinación de la línea roja.</p>
+        
+        <h2> Próximos Pasos</h2>
+        <ul>
+            <li> Evaluar si la simplificación afecta el rendimiento en circuitos con curvas cerradas.</li>
+            <li> Ajustar los valores del PID para optimizar el seguimiento de la línea.</li>
+            <li> Explorar la posibilidad de combinar la nueva estrategia con un modelo predictivo.</li>
+        </ul>
+    </div>
+
+    <!-- Contenido del tercer post sobre el coche Ackerman -->
+    <div id="post_ackerman_3" class="post-container" style="display: none;">
+        <h2> Introducción de la Banda Muerta - Tercera Iteración</h2>
+        <p>En esta versión del controlador PID para el coche Ackerman, hemos introducido la banda muerta en la corrección de la dirección, lo que permite evitar pequeñas oscilaciones innecesarias en la dirección.</p>
+        
+        <h2> Principales Mejoras</h2>
+        <ul>
+            <li><strong>Implementación de una banda muerta en el control del volante:</strong> Se evita que el coche haga correcciones innecesarias cuando el error es muy pequeño.</li>
+            <li><strong>Ajuste de los valores del PID:</strong> Se incrementó Kp y Kd para mejorar la estabilidad en curvas.</li>
+            <li><strong>Optimización de la velocidad:</strong> Se ha ajustado el PID de velocidad para permitir una mayor velocidad en rectas.</li>
+        </ul>
+        
+        <h2> Impacto del Cambio</h2>
+        <p>Gracias a la introducción de la banda muerta, el coche ahora es más estable en rectas y no realiza ajustes de dirección innecesarios. Esto ha permitido un incremento en la velocidad máxima sin comprometer la estabilidad en curvas.</p>
+        
+        <h2> Próximos Pasos</h2>
+        <ul>
+            <li> Evaluar el rendimiento en circuitos más complejos con diferentes tipos de curvas.</li>
+            <li> Ajustar más la banda muerta para lograr un equilibrio óptimo entre estabilidad y respuesta.</li>
+            <li> Explorar el uso de estrategias predictivas para anticipar mejor las curvas.</li>
+        </ul>
+        
+    </div>
+
+    <div id="post_ackerman_4" class="post-container" style="display: none;">
+        <h2> Versión Final - Cuarta Iteración</h2>
+        <p>Esta es la versión final del controlador PID para el coche Ackerman. Se han realizado los últimos ajustes para maximizar la estabilidad y eficiencia en el seguimiento de la línea roja.</p>
+        
+        <h2> Mejoras Finales</h2>
+        <ul>
+            <li><strong>Optimización de Kp y Kd:</strong> Se han ajustado para mejorar la estabilidad y minimizar oscilaciones.</li>
+            <li><strong>Aceleración progresiva:</strong> Implementación de un factor de aceleración controlado para evitar cambios bruscos de velocidad.</li>
+            <li><strong>Corrección de dirección limitada:</strong> Se estableció un límite en el ángulo de giro para evitar sobrecorrecciones.</li>
+        </ul>
+        
+        <h2> Resultado Final</h2>
+        <p>Con esta configuración, el coche logra un seguimiento de línea estable y eficiente. Se han minimizado los errores de oscilación y optimizado la adaptación a curvas.</p>
+        
+        <h2>🎥 Demostración en Video</h2>
+        <p>A continuación, puedes ver el rendimiento final del coche Ackerman en la pista:</p>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/3Qe5phop2FU" frameborder="0" allowfullscreen></iframe>
+        
+        <h2> Próximos Desafíos</h2>
+        <ul>
+            <li> Explorar métodos de predicción de trayectorias para mejorar la anticipación en curvas.</li>
+            <li> Integrar detección de obstáculos y estrategias de evasión.</li>
+            <li> Implementar modelos de aprendizaje automático para un control más adaptativo.</li>
+        </ul>
+        
+        <p>💬 ¿Qué opinas de los resultados? ¡Déjanos tus comentarios! 🚀</p>
+    </div>
+
+    <script>
+    function mostrarPost(categoria, num) {
+        let categorias = ["holonomico", "ackerman"];
+        
+        // Ocultar todos los posts de ambas categorías
+        categorias.forEach(cat => {
+            for (let i = 1; i <= 9; i++) {
+                let post = document.getElementById(`post_${cat}_${i}`);
+                if (post) {
+                    post.style.opacity = 0;
+                    post.style.display = 'none';
+                }
+            }
+        });
+
+        // Mostrar el post seleccionado
+        setTimeout(() => {
+            let post = document.getElementById(`post_${categoria}_${num}`);
+            if (post) {
+                post.style.display = 'block';
+                setTimeout(() => {
+                    post.style.opacity = 1;
+                    post.style.transform = 'translateY(0)';
+                }, 50);
+            }
+        }, 200);
+    }
+</script>
+
+    <!-- 📌 Footer al final de la página -->
+    <footer>
+        <p><a href="../index.html">Volver a la página principal</a></p>
+    </footer>
+</body>
+</html>
