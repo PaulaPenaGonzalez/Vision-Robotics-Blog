@@ -96,6 +96,12 @@
 	<p>Una vez tenemos los dos puntos proyectados en la imagen derecha, la línea epipolar se calcula como la recta que pasa por ambos:</p>
 	<p><code>line = np.cross(p1_2d, p2_2d)</code></p>
 	<p>Esto nos da los coeficientes <code>(a, b, c)</code> de la recta epipolar en la forma <code>ax + by + c = 0</code>, que se dibujará sobre la imagen derecha para restringir la búsqueda de homólogos a esa línea.</p>
+
+	<div style="text-align: center; margin-top: 20px;">
+	        <img src="https://raw.githubusercontent.com/PaulaPenaGonzalez/Vision-Robotics-Blog/main/assets/images/RectaEpipolar.jpg" 
+	             alt="Reconstrucción 3D a partir de bordes" 
+	             style="width: 300px; height: auto; border-radius: 8px;">
+    	</div>
 	
 	<p>Este paso es clave porque reduce el problema de búsqueda 2D a uno 1D: solo buscamos homólogos a lo largo de una línea, lo cual mejora mucho la eficiencia y precisión.</p>
 	
