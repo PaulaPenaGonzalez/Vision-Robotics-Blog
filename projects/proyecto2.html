@@ -72,7 +72,7 @@
     
     </div>
 
-    <!-- Contenido del segundo post -->
+    <!-- Contenido del tercer post -->
     <div id="post_Dia3_3" class="post-container" style="display: none;">
 	<h2> Detección y selección de puntos característicos </h2>
         
@@ -101,18 +101,21 @@
 	
     </div>
 
-    <!--Contenido del tercer post -->
+    <!--Contenido del segundo post -->
     <div id="post_Dia2_2" class="post-container" style="display: none;">
         <h2> ¿Qué significa detectar puntos característicos? </h2>
         <p>En el proceso de reconstrucción 3D, identificar los puntos más relevantes de una imagen es esencial. No todos los píxeles aportan información útil: necesitamos centrarnos en aquellos que definen contornos, estructuras y geometrías bien marcadas en la escena. En este post, abordamos cómo se extraen estos puntos a partir de una imagen ya procesada por un detector de bordes.</p>
         
-        <h2> Selección a partir de bordes detectados </h2>
-	<p>Una vez obtenida la máscara de bordes mediante el detector de Canny, lo que tenemos es una imagen en blanco y negro donde los bordes aparecen marcados en blanco (valor alto). A partir de aquí, el objetivo es localizar las coordenadas de estos píxeles blancos que representan los contornos más significativos.
-
-Para ello, se recorre la imagen buscando todas las posiciones en las que el valor del píxel supere cierto umbral (en este caso, simplemente donde el valor es mayor que cero). Esto nos devuelve las coordenadas (x, y) de los bordes relevantes. Así se construye una lista de puntos que actuarán como candidatos para buscar correspondencias entre imágenes izquierda y derecha.</p>
+        <h3> Selección a partir de bordes detectados </h3>
+	<p>Una vez obtenida la máscara de bordes mediante el detector de Canny, lo que tenemos es una imagen en blanco y negro donde los bordes aparecen marcados en blanco (valor alto).</p>
+	<p>A partir de aquí, el objetivo es localizar las coordenadas de estos píxeles blancos que representan los contornos más significativos.</p>
+	
+	<p>Para ello, se recorre la imagen buscando todas las posiciones en las que el valor del píxel supere cierto umbral (en este caso, simplemente donde el valor es mayor que cero). </p>
+	<p>Esto nos devuelve las coordenadas (x, y) de los bordes relevantes. Así se construye una lista de puntos que actuarán como candidatos para buscar correspondencias entre imágenes izquierda y derecha.</p>
         
-        <h2> Un pequeño extra </h2>
-        <p>Durante las pruebas, se decidió no procesar todos los puntos a la vez, sino seleccionar uno de cada pocos (por ejemplo, cada tres puntos). Esto ayuda a mantener el rendimiento y obtener una nube de puntos más limpia y distribuida de forma uniforme. Con esta lista de puntos característica ya lista, estamos preparados para pasar al siguiente paso: proyectar cada uno de ellos y buscar su homólogo en la segunda imagen </p>
+        <h3> Un pequeño extra </h3>
+        <p>Durante las pruebas, se decidió no procesar todos los puntos a la vez, sino seleccionar uno de cada pocos (por ejemplo, cada tres puntos). </p>
+	<p>Esto ayuda a mantener el rendimiento y obtener una nube de puntos más limpia y distribuida de forma uniforme. Con esta lista de puntos característica ya lista, estamos preparados para pasar al siguiente paso: proyectar cada uno de ellos y buscar su homólogo en la segunda imagen </p>
         
     </div>
 
