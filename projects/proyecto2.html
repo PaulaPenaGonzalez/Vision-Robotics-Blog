@@ -120,27 +120,33 @@
     </div>
 
     <!-- Contenido del cuarto post -->
-    <div id="post_holonomico_4" class="post-container" style="display: none;">
-        <h2> Seguimiento de Línea con PID en Unibotics - Día 4</h2>
-        <p>En esta iteración, hemos introducido un controlador PID adicional para gestionar la velocidad del coche. Ahora, el coche no solo sigue la línea con precisión, sino que también ajusta su velocidad en función de la curvatura de la pista.</p>
-        
-        <h2> Mejoras con respecto al Día 3</h2>
+    <div id="post_Dia_4" class="post-container" style="display: none;">
+	<h1>Emparejamiento por correlación (búsqueda de homólogos)</h1>
+
+	<p>Una vez definida la línea epipolar en la imagen derecha, el siguiente paso es buscar el punto homólogo correspondiente al punto de la imagen izquierda. Esta tarea se realiza mediante correlación de ventanas y técnicas de comparación basadas en diferencias de intensidad.</p>
+	
+        <h3>Función <code>buscar_match_epipolar_Canny()</code></h3>
+
+	<p>Se diseñó una función que recorre la línea epipolar en la imagen derecha evaluando múltiples coordenadas posibles, comparando cada una con la región del punto original en la imagen izquierda.</p>
+
         <ul>
-            <li><strong>PID para la Velocidad:</strong> Implementamos un segundo controlador PID que reduce la velocidad cuando el coche entra en curvas y la aumenta en rectas.</li>
-            <li><strong>Optimización del PID del Volante:</strong> Ajustamos los valores de Kp, Ki y Kd para mejorar la respuesta del coche en curvas.</li>
-            <li><strong>Segmentación Refinada:</strong> Se sigue usando la franja superior de la imagen, pero se ha ajustado el porcentaje de recorte para mejorar la detección.</li>
-            <li><strong>Estrategia de Recuperación Mejorada:</strong> Ahora el coche alterna entre búsqueda oscilante y recuperación de la última dirección conocida cuando pierde la línea.</li>
-        </ul>
-        
-        <h2> Resultados y Observaciones</h2>
-        <p>Gracias a la nueva implementación del PID de velocidad, el coche mantiene una conducción más fluida y optimizada, reduciendo la inestabilidad en curvas. Aun así, todavía hay margen de mejora en la calibración del PID para minimizar oscilaciones en rectas.</p>
-        
-        <h2> Próximos Pasos</h2>
-        <ul>
-            <li> Refinar aún más los valores del PID para obtener una respuesta más natural.</li>
-            <li> Explorar métodos de predicción de curvas para anticipar mejor los cambios de dirección.</li>
-            <li> Optimizar la lógica de recuperación cuando el coche pierde la línea.</li>
-        </ul>
+	        <li>Para cada valor de <code>x</code> a lo largo de la línea epipolar, se calcula el correspondiente <code>y</code> usando la ecuación de la recta <code>y = -(a·x + c)/b</code>.</li>
+	        <li>Se extrae una ventana centrada en <code>(x, y)</code> en la imagen derecha y se compara con una ventana de mismo tamaño centrada en el punto original de la imagen izquierda.</li>
+	        <li>La comparación se realiza usando el error <strong>SSD normalizado</strong> (Sum of Squared Differences), lo cual penaliza las diferencias de intensidad.</li>
+    	</ul> 
+
+	<p>Una vez recorrida toda la línea epipolar, se selecciona el punto con menor SSD como mejor candidato, siempre que esté por debajo de un umbral que garantiza una buena correspondencia.</p>
+
+	<h3>Filtro adicional por color</h3>
+    	<p>Para mejorar aún más la fiabilidad de los matches, se implementó un filtro adicional que compara el color del píxel en la imagen izquierda con el color del píxel candidato en la derecha.</p>
+
+	<ul>
+		<li>Se calcula la distancia euclídea entre ambos colores (en espacio RGB).</li>
+	        <li>Si la diferencia es demasiado alta (por encima de un umbral establecido), se descarta el match aunque tenga un buen SSD.</li>
+	</ul>
+
+	<p>Este enfoque combinado de <strong>correlación espacial</strong> y <strong>consistencia de color</strong> mejora significativamente la robustez del emparejamiento, reduciendo falsos positivos y contribuyendo a una nube de puntos 3D más precisa.</p>
+
     </div>
 
     <!-- Contenido del quinto post -->
