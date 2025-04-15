@@ -214,18 +214,11 @@
 	<h3>Filtrado por distancia entre rayos</h3>
  	<p>Durante la triangulación, se calculó la distancia entre los rayos de retroproyección de cada cámara. Si esta distancia era demasiado grande, se consideraba que los rayos no se cruzaban de forma fiable, y el punto 3D correspondiente se descartaba.</p>
 
-	<h3>🔭 Umbral sobre los parámetros de triangulación <code>t</code> y <code>s</code></h3>
-	<p>
-	        Otro criterio de validación consistió en comprobar que los parámetros <code>t</code> y <code>s</code> obtenidos durante
-	        la resolución del sistema de triangulación fueran positivos y estuvieran dentro de un rango aceptable.
-	        Estos valores determinan la posición del punto a lo largo de los rayos, por lo que si son negativos o extremadamente grandes,
-	        significa que el punto reconstruido estaría fuera del campo visual de la escena.
-	</p>
+	<h3>Umbral sobre los parámetros de triangulación <code>t</code> y <code>s</code></h3>
+	<p> Otro criterio de validación consistió en comprobar que los parámetros <code>t</code> y <code>s</code> obtenidos durante la resolución del sistema de triangulación fueran positivos y estuvieran dentro de un rango aceptable.</p>
+	<p>Estos valores determinan la posición del punto a lo largo de los rayos, por lo que si son negativos o extremadamente grandes, significa que el punto reconstruido estaría fuera del campo visual de la escena. </p>
 	
-	<p>
-	        Gracias a la incorporación de estos dos filtros, la nube de puntos final presenta una geometría mucho más coherente y limpia,
-	        facilitando su análisis visual y reduciendo significativamente los outliers.
-	</p>
+	<p> Gracias a la incorporación de estos dos filtros, la nube de puntos final presenta una geometría mucho más coherente y limpia,facilitando su análisis visual y reduciendo significativamente los outliers.</p>
     </div>
 
     <!-- Contenido del octavo post -->
