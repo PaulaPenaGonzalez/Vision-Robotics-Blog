@@ -78,7 +78,13 @@
 	<h2> Detección y selección de puntos característicos </h2>
         
 	<p>Uno de los pilares de la reconstrucción 3D a partir de visión estéreo es la <strong>geometría epipolar</strong>. En este post abordamos cómo obtener la línea epipolar en la imagen derecha a partir de un punto característico detectado en la imagen izquierda.</p>
-        
+
+	<div style="text-align: center; margin-top: 20px;">
+	        <img src="https://raw.githubusercontent.com/PaulaPenaGonzalez/Vision-Robotics-Blog/main/assets/images/TRIANGULACION.png" 
+	             alt="Reconstrucción 3D a partir de bordes" 
+	             style="width: 300px; height: auto; border-radius: 8px;">
+    	</div>
+	
 	<h3> Retroproyección del punto izquierdo </h3>
 
 	<p>Cada punto característico extraído de la imagen izquierda es transformado a coordenadas del mundo real mediante retroproyección. Para ello, se utiliza la matriz de proyección inversa de la cámara izquierda, proporcionada por la herramienta <code>HAL.backproject</code>.</p>
