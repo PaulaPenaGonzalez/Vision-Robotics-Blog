@@ -144,14 +144,18 @@
 	<p>Una vez recorrida toda la línea epipolar, se selecciona el punto con menor SSD como mejor candidato, siempre que esté por debajo de un umbral que garantiza una buena correspondencia.</p>
 
 	<h3>Filtro adicional por color</h3>
-    	<p>Para mejorar aún más la fiabilidad de los matches, se implementó un filtro adicional que compara el color del píxel en la imagen izquierda con el color del píxel candidato en la derecha.</p>
+    	<p>Para mejorar aún más la fiabilidad de los matches, se quiso implementar un filtro adicional que compara el color del píxel en la imagen izquierda con el color del píxel candidato en la derecha.</p>
 
 	<ul>
 		<li>Se calcula la distancia euclídea entre ambos colores (en espacio RGB).</li>
 	        <li>Si la diferencia es demasiado alta (por encima de un umbral establecido), se descarta el match aunque tenga un buen SSD.</li>
 	</ul>
 
-	<p>Este enfoque combinado de <strong>correlación espacial</strong> y <strong>consistencia de color</strong> mejora significativamente la robustez del emparejamiento, reduciendo falsos positivos y contribuyendo a una nube de puntos 3D más precisa.</p>
+	<p>Este enfoque combinado de <strong>correlación espacial</strong> y <strong>consistencia de color</strong> hubiese podido mejorar significativamente la robustez del emparejamiento, reduciendo falsos positivos y contribuyendo a una nube de puntos 3D más precisa. Sin embargo en el modelo final, solo se implementó la correlación espacial.</p>
+
+	<p>A continuación se muestra un video del proceso de correlación en ambas imágenes:</p>
+
+	
 
     </div>
 
@@ -219,6 +223,11 @@
 	<p>Estos valores determinan la posición del punto a lo largo de los rayos, por lo que si son negativos o extremadamente grandes, significa que el punto reconstruido estaría fuera del campo visual de la escena. </p>
 	
 	<p> Gracias a la incorporación de estos dos filtros, la nube de puntos final presenta una geometría mucho más coherente y limpia,facilitando su análisis visual y reduciendo significativamente los outliers.</p>
+
+	<p>A cotinuación se muestra un video con el resultado final de la reconstrucción 3D:</p>
+
+	<iframe width="560" height="315" src="https://youtu.be/ceEEqg4W2bo" frameborder="0" allowfullscreen></iframe>
+
     </div>
 
     <!-- Contenido del octavo post -->
