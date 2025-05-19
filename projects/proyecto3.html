@@ -1,1 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto 1 - Detección de Bordes</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <header>
+        <h1> Reconstrucción 3D de una escena 2D </h1>
+        <p> Progreso y avances de este proyecto. </p>
+    </header>
 
+    <!-- Introducción antes de las publicaciones -->
+    <div class="container">
+    	<p>
+        En este proyecto, se ha desarrollado un sistema de reconstrucción 3D a partir de imágenes estéreo. A través de técnicas clásicas de visión por computador, como la geometría epipolar, la correlación de ventanas y la triangulación de rayos, se genera una nube de puntos coloreada que representa la escena capturada por las cámaras. 
+    	</p>
+    	<p>
+        A continuación, puedes leer las publicaciones relacionadas con este proyecto, donde se detallan los avances, problemas encontrados y soluciones aplicadas. 
+	</p>
+
+	<!-- Imagen de la reconstrucción -->
+    	<div style="text-align: center; margin-top: 20px;">
+	        <img src="https://raw.githubusercontent.com/PaulaPenaGonzalez/Vision-Robotics-Blog/main/assets/images/proyecto2.jpg" 
+	             alt="Reconstrucción 3D a partir de bordes" 
+	             style="width: 600px; height: auto; border-radius: 8px;">
+    	</div>
+    </div>
+
+    <div class="container">
+        <h2>Publicaciones - Reconstrucción 3D</h2>
+        <button onclick="mostrarPost('Dia1', 1)"> Primer post </button>
+        <button onclick="mostrarPost('Dia2', 2)"> Segundo post</button>
+        <button onclick="mostrarPost('Dia3', 3)"> Tercer post</button>
+        <button onclick="mostrarPost('Dia4', 4)"> Cuarto post</button>
+	<button onclick="mostrarPost('Dia5', 5)"> Quinto post</button>
+	<button onclick="mostrarPost('Dia6', 6)"> Sexto post</button>
+	<button onclick="mostrarPost('Dia7', 7)"> Séptimo post</button>
+    </div>
+
+    <!-- Contenido del primer post -->
+    <div id="post_Dia1_1" class="post-container" style="display: none;">
+	<h2> Preparación inicial y lectura de imágenes </h2>
+	<h3>Objetivo:</h3>
+    	<p> Cargar y preprocesar las imágenes estéreo capturadas por las dos cámaras calibradas (izquierda y derecha). Fundamental para extraer la información visual relevante que servirá como base para todo el sistema de reconstrucción 3D.</p>
+
+    	<h3> Captura de Imágenes</h3>
+
+    	<p>Las imágenes izquierda y derecha fueron obtenidas desde el simulador Unibotics. Estas imágenes corresponden a la misma escena vista desde dos ángulos ligeramente diferentes, lo que permite generar percepción de profundidad gracias al paralaje.</p>
+
+	<div style="text-align: center; margin-top: 20px;">
+	        <img src="https://raw.githubusercontent.com/PaulaPenaGonzalez/Vision-Robotics-Blog/main/assets/images/ImagenLImagenR.jpg" 
+	             alt="Reconstrucción 3D a partir de bordes" 
+	             style="width: 350px; height: auto; border-radius: 8px;">
+    	</div>
+	    
+    	<h3> Conversión a Escala de Grises</h3>
+    	<p> Para simplificar el análisis visual y reducir la carga computacional, se realizó una conversión de las imágenes a escala de grises. Esto permite centrarse en la estructura de la escena sin que el color interfiera en las operaciones iniciales como la detección de bordes.</p>
+
+    	<h3>Detección de Bordes</h3>
+	<p>La etapa clave en este punto fue aplicar un detector de bordes, específicamente el método de Canny. Esta técnica resalta los contornos y líneas más relevantes de la escena, permitiendo identificar los puntos característicos que luego se utilizarán para hallar correspondencias entre ambas imágenes. Se hizo un ajuste manual de los parámetros del detector para encontrar un equilibrio entre sensibilidad (captar todos los bordes importantes) y robustez (evitar bordes producidos por ruido o detalles irrelevantes).</p>
+
+	<div style="text-align: center; margin-top: 20px;">
+	        <img src="https://raw.githubusercontent.com/PaulaPenaGonzalez/Vision-Robotics-Blog/main/assets/images/Bordes.jpg" 
+	             alt="Reconstrucción 3D a partir de bordes" 
+	             style="width: 350px; height: auto; border-radius: 8px;">
+    	</div>
+
+    	<h3>Visualización y Verificación</h3>
+    	<p>Una vez obtenidas las máscaras de bordes, se visualizaron ambas imágenes con sus respectivos contornos resaltados. Esto ayudó a comprobar que los parámetros elegidos proporcionaban una buena base para continuar con la reconstrucción.</p>
+    
+    </div>
+
+    <!--Contenido del segundo post -->
+    <div id="post_Dia2_2" class="post-container" style="display: none;">
+        <h2> ¿Qué significa detectar puntos característicos? </h2>
+        <p>En el proceso de reconstrucción 3D, identificar los puntos más relevantes de una imagen es esencial. No todos los píxeles aportan información útil: necesitamos centrarnos en aquellos que definen contornos, estructuras y geometrías bien marcadas en la escena. En este post, abordamos cómo se extraen estos puntos a partir de una imagen ya procesada por un detector de bordes.</p>
+        
+        <h3> Selección a partir de bordes detectados </h3>
+	<p>Una vez obtenida la máscara de bordes mediante el detector de Canny, lo que tenemos es una imagen en blanco y negro donde los bordes aparecen marcados en blanco (valor alto).</p>
+	<p>A partir de aquí, el objetivo es localizar las coordenadas de estos píxeles blancos que representan los contornos más significativos.</p>
+	
+	<p>Para ello, se recorre la imagen buscando todas las posiciones en las que el valor del píxel supere cierto umbral (en este caso, simplemente donde el valor es mayor que cero). </p>
+	<p>Esto nos devuelve las coordenadas (x, y) de los bordes relevantes. Así se construye una lista de puntos que actuarán como candidatos para buscar correspondencias entre imágenes izquierda y derecha.</p>
+        
+        <h3> Un pequeño extra </h3>
+        <p>Durante las pruebas, se decidió no procesar todos los puntos a la vez, sino seleccionar uno de cada pocos (por ejemplo, cada tres puntos). </p>
+	<p>Esto ayuda a mantener el rendimiento y obtener una nube de puntos más limpia y distribuida de forma uniforme. Con esta lista de puntos característica ya lista, estamos preparados para pasar al siguiente paso: proyectar cada uno de ellos y buscar su homólogo en la segunda imagen </p>
+        
+    </div>
+
+    <!-- Contenido del tercer post -->
+    <div id="post_Dia3_3" class="post-container" style="display: none;">
+	<h2> Detección y selección de puntos característicos </h2>
+        
+	<p>Uno de los pilares de la reconstrucción 3D a partir de visión estéreo es la <strong>geometría epipolar</strong>. En este post abordamos cómo obtener la línea epipolar en la imagen derecha a partir de un punto característico detectado en la imagen izquierda.</p>
+
+	<div style="text-align: center; margin-top: 20px;">
+	        <img src="https://raw.githubusercontent.com/PaulaPenaGonzalez/Vision-Robotics-Blog/main/assets/images/TRIANGULACION.png" 
+	             alt="Reconstrucción 3D a partir de bordes" 
+	             style="width: 350px; height: auto; border-radius: 8px;">
+    	</div>
+	
+	<h3> Retroproyección del punto izquierdo </h3>
+
+	<p>Cada punto característico extraído de la imagen izquierda es transformado a coordenadas del mundo real mediante retroproyección. Para ello, se utiliza la matriz de proyección inversa de la cámara izquierda, proporcionada por la herramienta <code>HAL.backproject</code>.</p>
+        
+        <h3>Vector director del rayo</h3>
+        <p>Con el punto 3D obtenido y la posición de la cámara izquierda, se calcula el vector director del rayo de retroproyección:</p>
+    	<p><code>u = punto_3d - centro_cámara</code></p>
+    	<p>Este vector se normaliza para definir una dirección en el espacio desde el centro de la cámara.</p>
+        
+        <h3>Proyección del rayo en la imagen derecha</h3>
+
+	<p>Se seleccionan dos puntos arbitrarios sobre el rayo en 3D (por ejemplo, a cierta distancia a lo largo del vector director) y se proyectan sobre la imagen derecha utilizando la función <code>HAL.project</code>.</p>
+	<p>Posteriormente, se convierten estas coordenadas proyectadas de espacio óptico a espacio gráfico con <code>HAL.opticalToGrafic</code>.</p>
+	
+	<h3> Cálculo de la línea epipolar</h3>
+	<p>Una vez tenemos los dos puntos proyectados en la imagen derecha, la línea epipolar se calcula como la recta que pasa por ambos:</p>
+	<p><code>line = np.cross(p1_2d, p2_2d)</code></p>
+	<p>Esto nos da los coeficientes <code>(a, b, c)</code> de la recta epipolar en la forma <code>ax + by + c = 0</code>, que se dibujará sobre la imagen derecha para restringir la búsqueda de homólogos a esa línea.</p>
+
+	<div style="text-align: center; margin-top: 20px;">
+	        <img src="https://raw.githubusercontent.com/PaulaPenaGonzalez/Vision-Robotics-Blog/main/assets/images/RectaEpipolar.jpg" 
+	             alt="Reconstrucción 3D a partir de bordes" 
+	             style="width: 300px; height: auto; border-radius: 8px;">
+    	</div>
+	
+    </div>
+
+    <!-- Contenido del cuarto post -->
+    <div id="post_Dia4_4" class="post-container" style="display: none;">
+	
+	<h2>Emparejamiento por correlación (búsqueda de homólogos)</h2>
+
+	<p>Una vez definida la línea epipolar en la imagen derecha, el siguiente paso es buscar el punto homólogo correspondiente al punto de la imagen izquierda. Esta tarea se realiza mediante correlación de ventanas y técnicas de comparación basadas en diferencias de intensidad.</p>
+	
+        <h3>Función <code>buscar_match_epipolar_Canny()</code></h3>
+
+	<p>Se diseñó una función que recorre la línea epipolar en la imagen derecha evaluando múltiples coordenadas posibles, comparando cada una con la región del punto original en la imagen izquierda.</p>
+
+        <ul>
+	        <li>Para cada valor de <code>x</code> a lo largo de la línea epipolar, se calcula el correspondiente <code>y</code> usando la ecuación de la recta <code>y = -(a·x + c)/b</code>.</li>
+	        <li>Se extrae una ventana centrada en <code>(x, y)</code> en la imagen derecha y se compara con una ventana de mismo tamaño centrada en el punto original de la imagen izquierda.</li>
+	        <li>La comparación se realiza usando el error <strong>SSD normalizado</strong> (Sum of Squared Differences), lo cual penaliza las diferencias de intensidad.</li>
+    	</ul> 
+
+	<p>Una vez recorrida toda la línea epipolar, se selecciona el punto con menor SSD como mejor candidato, siempre que esté por debajo de un umbral que garantiza una buena correspondencia.</p>
+
+	<h3>Filtro adicional por color</h3>
+    	<p>Para mejorar aún más la fiabilidad de los matches, se quiso implementar un filtro adicional que compara el color del píxel en la imagen izquierda con el color del píxel candidato en la derecha.</p>
+
+	<ul>
+		<li>Se calcula la distancia euclídea entre ambos colores (en espacio RGB).</li>
+	        <li>Si la diferencia es demasiado alta (por encima de un umbral establecido), se descarta el match aunque tenga un buen SSD.</li>
+	</ul>
+
+	<p>Este enfoque combinado de <strong>correlación espacial</strong> y <strong>consistencia de color</strong> hubiese podido mejorar significativamente la robustez del emparejamiento, reduciendo falsos positivos y contribuyendo a una nube de puntos 3D más precisa. Sin embargo en el modelo final, solo se implementó la correlación espacial.</p>
+
+	<p>A continuación se muestra un video del proceso de correlación en ambas imágenes:</p>
+
+	
+
+    </div>
+
+    <!-- Contenido del quinto post -->
+    <div id="post_Dia5_5" class="post-container" style="display: none;">
+	
+	<h2>Triangulación del punto 3D</h2>
+	    
+	<p>Una vez identificada una pareja de píxeles correspondientes (uno en cada imagen), el siguiente paso es estimar la posición 3D del punto de la escena que proyecta en ambas cámaras. Para ello, utilizamos una técnica basada en la geometría de retroproyección.</p>
+
+	<h3>Rayos de retroproyección</h3>
+  	<p>Cada píxel, al ser retroproyectado mediante la matriz de calibración y la posición de la cámara, genera un rayo que apunta desde el centro óptico hacia la escena. Ambos rayos (izquierdo y derecho) deberían, idealmente, cruzarse en el espacio tridimensional.</p>
+
+	<h3>Implementación de <code>triangulate_midpoint()</code></h3>
+	<ul>
+	    <li>Se planteó y resolvió un sistema lineal para encontrar los puntos más cercanos entre ambos rayos.</li>
+	    <li>Estos puntos se denominan <code>P1</code> y <code>P2</code>, uno sobre cada rayo.</li>
+	    <li>El punto 3D estimado es el punto medio entre ambos: <strong>el centro del segmento mínimo entre rayos</strong>.</li>
+	</ul>
+
+	<div style="text-align: center; margin: 30px 0;">
+	<iframe width="560" height="315" src="https://www.youtube.com/embed/Fd0WqJa0TB8" frameborder="0" allowfullscreen></iframe>
+	</div>
+
+	<h3>Filtrado de puntos no fiables (outliers)</h3>
+	<ul>
+	    <li>Si la distancia entre los rayos (<code>‖P1 - P2‖</code>) es demasiado alta, el punto se descarta por inconsistencia geométrica.</li>
+	    <li>También se descartan las soluciones en las que los parámetros del sistema lineal (<code>t</code> o <code>s</code>) resultan negativos. Esto indica que el punto estaría "detrás" de alguna de las cámaras, lo cual no tiene sentido físico.</li>
+	</ul>
+
+	<p>Con esta función, se garantiza que cada punto de la nube reconstruida tiene una base sólida desde el punto de vista geométrico y espacial. Solo se conservan aquellos puntos que están bien triangulados y situados en la región visual válida de ambas cámaras.</p>
+	
+    </div>
+
+    <!-- Contenido del sexto post -->
+    <div id="post_Dia6_6" class="post-container" style="display: none;">
+        <h2> Proyección y visualización </h2>
+	
+        <p>Tras obtener la posición 3D de un punto mediante triangulación, el siguiente paso fue representarlo de forma visual dentro del entorno. Para ello, se empleó el visor 3D de Unibotics como herramienta de visualización.</p>
+
+	<h3>Conversión de unidades</h3>
+  	<p>Como las posiciones reconstruidas están en milímetros (debido a la escala de las cámaras), fue necesario dividir por 100 para convertirlas a decímetros. Esto permite una visualización adecuada y proporcional dentro del entorno virtual.</p>
+
+	<h3>Color de los puntos</h3>
+	<p>Cada punto 3D se visualiza no solo por su posición, sino también por el color extraído del píxel izquierdo original. Este detalle aporta riqueza visual a la nube de puntos, ya que cada uno conserva la tonalidad del objeto real que lo originó.</p>
+	<ul>
+	    <li>Se accede al color del píxel en la imagen izquierda (usualmente en formato BGR).</li>
+	    <li>Se convierte a RGB para usarlo correctamente en el visor.</li>
+	    <li>Se construye una tupla con la forma <code>(x, y, z, r, g, b)</code>.</li>
+	</ul>
+
+	<h3>Visualización en el entorno 3D</h3>
+  	<p>Con la posición ajustada y el color asociado, cada punto se envía al visor con la función <code>GUI.ShowNewPoints()</code>. Así, la nube de puntos 3D se va formando de forma interactiva, punto a punto, representando fielmente la geometría y el aspecto de la escena original.</p>
+
+  	<p>Este paso permite validar visualmente la reconstrucción y ajustar parámetros si se detectan errores en la escala, el color o la alineación de los puntos generados.</p>
+
+    </div>
+
+    <!-- Contenido del séptimo post -->
+    <div id="post_Dia7_7" class="post-container" style="display: none;">
+        <h2> Limpieza y refinamiento </h2>
+        <p>Una vez generada la nube de puntos 3D, el siguiente paso fundamental fue su depuración. La reconstrucción puede incluir puntos erróneos u outliers debido a emparejamientos incorrectos, ruido o geometrías mal trianguladas.</p>
+
+	<h3>Filtrado por distancia entre rayos</h3>
+ 	<p>Durante la triangulación, se calculó la distancia entre los rayos de retroproyección de cada cámara. Si esta distancia era demasiado grande, se consideraba que los rayos no se cruzaban de forma fiable, y el punto 3D correspondiente se descartaba.</p>
+
+	<h3>Umbral sobre los parámetros de triangulación <code>t</code> y <code>s</code></h3>
+	<p> Otro criterio de validación consistió en comprobar que los parámetros <code>t</code> y <code>s</code> obtenidos durante la resolución del sistema de triangulación fueran positivos y estuvieran dentro de un rango aceptable.</p>
+	<p>Estos valores determinan la posición del punto a lo largo de los rayos, por lo que si son negativos o extremadamente grandes, significa que el punto reconstruido estaría fuera del campo visual de la escena. </p>
+	
+	<p> Gracias a la incorporación de estos dos filtros, la nube de puntos final presenta una geometría mucho más coherente y limpia,facilitando su análisis visual y reduciendo significativamente los outliers.</p>
+
+	<p>A cotinuación se muestra un video con el resultado final de la reconstrucción 3D:</p>
+	
+	<div style="text-align: center; margin: 30px 0;">
+	<iframe width="560" height="315" src="https://www.youtube.com/embed/ceEEqg4W2bo" frameborder="0" allowfullscreen></iframe>
+	</div>
+    
+    </div>
+
+    <script>
+    function mostrarPost(categoria, num) {
+        let categorias = ["holonomico", "ackerman"];
+        
+        // Ocultar todos los posts de ambas categorías
+        categorias.forEach(cat => {
+            for (let i = 1; i <= 9; i++) {
+                let post = document.getElementById(`post_${cat}_${i}`);
+                if (post) {
+                    post.style.opacity = 0;
+                    post.style.display = 'none';
+                }
+            }
+        });
+
+        // Mostrar el post seleccionado
+        setTimeout(() => {
+            let post = document.getElementById(`post_${categoria}_${num}`);
+            if (post) {
+                post.style.display = 'block';
+                setTimeout(() => {
+                    post.style.opacity = 1;
+                    post.style.transform = 'translateY(0)';
+                }, 50);
+            }
+        }, 200);
+    }
+</script>
+
+    <!-- 📌 Footer al final de la página -->
+    <footer>
+        <p><a href="../index.html">Volver a la página principal</a></p>
+    </footer>
+</body>
+</html>
