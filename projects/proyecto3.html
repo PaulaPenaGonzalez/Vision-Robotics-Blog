@@ -15,16 +15,13 @@
     <!-- Introducción antes de las publicaciones -->
     <div class="container">
         <p>
-        En este proyecto hemos implementado un sistema de localización de un robot móvil mediante el uso de balizas AprilTags y técnicas de visión por computador.
+        En este proyecto se ha implementado un sistema de localización de un robot móvil mediante el uso de balizas AprilTags y técnicas de visión por computador.
         </p>
         <p>
         A partir de las imágenes capturadas por la cámara del robot, se detectan las balizas y se calcula la posición y orientación del robot con respecto al mundo aplicando transformaciones geométricas (roto-traslaciones) entre diferentes sistemas de referencia: cámara, baliza, robot y mundo.
         </p>
         <p>
-        Cuando el robot no es capaz de ver ninguna baliza, el sistema recurre a la odometría para estimar su nueva posición, sumando los pequeños desplazamientos detectados respecto a la última posición conocida.
-        </p>
-        <p>
-        Este enfoque híbrido permite mantener una localización continua y razonablemente precisa incluso en entornos parcialmente observables.
+        Cuando el robot no es capaz de ver ninguna baliza, el sistema recurre a la odometría para estimar su nueva posición.
         </p>
 
         <!-- Imagen destacada del proyecto -->
