@@ -150,6 +150,47 @@
 
     <!-- Contenido del tercer post -->
     <div id="post_Dia3_3" class="post-container" style="display: none;">
+	    <h2>Estimación de la pose con odometría</h2>
+	    
+	    <h3> ¿Qué ocurre cuando no se detectan AprilTags?</h3>
+	    <p>
+	        En muchas ocasiones, el robot puede perder de vista las balizas. Para evitar quedarse sin estimación de la pose, se emplea la <strong>odometría del robot</strong> como sistema de respaldo.
+	    </p>
+	    <p>
+	        Dado que la odometría está sujeta a error acumulativo, no se usa como fuente primaria, sino que se integra solamente en los pasos en los que no se visualizan balizas. En cada iteración, se calcula el cambio de posición y orientación (delta) desde la última lectura, y se aplica sobre la última pose estimada por visión.
+	    </p>
+	
+	    <p>
+	        Se probó una alternativa basada en integrar velocidades lineales y angulares directamente:
+	    </p>
+	
+	    <pre>
+	    x += v * cos(theta) * dt
+	    y += v * sin(theta) * dt
+	    theta += w * dt
+	    </pre>
+	
+	    <p>
+	        Sin embargo, en la práctica, se observó que aprovechar directamente la odometría ofrecía mejores resultados, ya que el simulador ya entrega valores acumulados de posición y orientación.
+	    </p>
+	
+	    <h3> Combinación de fuentes</h3>
+	    <p>
+	        El sistema implementado combina ambas técnicas:
+	    </p>
+	    <ul>
+	        <li>Cuando se ve una baliza → se usa la pose estimada por visión y se actualiza el estado.</li>
+	        <li>Cuando no se ve ninguna baliza → se actualiza la pose anterior con la diferencia de odometría.</li>
+	    </ul>
+	
+	    <p>
+	        Esta estrategia híbrida permite mantener una estimación continua y bastante estable de la posición del robot en el entorno simulado.
+	    </p>
+    </div>
+
+	
+    <!-- Contenido del tercer post -->
+    <div id="post_Dia3_3" class="post-container" style="display: none;">
 	<h2> Detección y selección de puntos característicos </h2>
         
 	<p>Uno de los pilares de la reconstrucción 3D a partir de visión estéreo es la <strong>geometría epipolar</strong>. En este post abordamos cómo obtener la línea epipolar en la imagen derecha a partir de un punto característico detectado en la imagen izquierda.</p>
