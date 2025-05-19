@@ -214,7 +214,7 @@
 	    </p>
 	
 	    <div style="text-align: center; margin-top: 20px;">
-	        <img src="https://raw.githubusercontent.com/PaulaPenaGonzalez/Vision-Robotics_Blog/main/assets/images/balizas.png" 
+	        <img src="https://raw.githubusercontent.com/PaulaPenaGonzalez/Vision-Robotics-Blog/main/assets/images/balizas.png" 
 	             alt="Selección de la mejor baliza con resaltado azul" 
 	             style="width: 500px; height: auto; border-radius: 8px;">
 	    </div>
@@ -249,26 +249,21 @@
 
     <!-- Contenido del sexto post -->
     <div id="post_Dia6_6" class="post-container" style="display: none;">
-        <h2> Proyección y visualización </h2>
 	
-        <p>Tras obtener la posición 3D de un punto mediante triangulación, el siguiente paso fue representarlo de forma visual dentro del entorno. Para ello, se empleó el visor 3D de Unibotics como herramienta de visualización.</p>
-
-	<h3>Conversión de unidades</h3>
-  	<p>Como las posiciones reconstruidas están en milímetros (debido a la escala de las cámaras), fue necesario dividir por 100 para convertirlas a decímetros. Esto permite una visualización adecuada y proporcional dentro del entorno virtual.</p>
-
-	<h3>Color de los puntos</h3>
-	<p>Cada punto 3D se visualiza no solo por su posición, sino también por el color extraído del píxel izquierdo original. Este detalle aporta riqueza visual a la nube de puntos, ya que cada uno conserva la tonalidad del objeto real que lo originó.</p>
-	<ul>
-	    <li>Se accede al color del píxel en la imagen izquierda (usualmente en formato BGR).</li>
-	    <li>Se convierte a RGB para usarlo correctamente en el visor.</li>
-	    <li>Se construye una tupla con la forma <code>(x, y, z, r, g, b)</code>.</li>
-	</ul>
-
-	<h3>Visualización en el entorno 3D</h3>
-  	<p>Con la posición ajustada y el color asociado, cada punto se envía al visor con la función <code>GUI.ShowNewPoints()</code>. Así, la nube de puntos 3D se va formando de forma interactiva, punto a punto, representando fielmente la geometría y el aspecto de la escena original.</p>
-
-  	<p>Este paso permite validar visualmente la reconstrucción y ajustar parámetros si se detectan errores en la escala, el color o la alineación de los puntos generados.</p>
-
+	    <h3>Problemas encontrados y ajustes</h3>
+	
+	    <ul>
+	        <li>
+	            <strong>Desajuste entre sistemas de coordenadas:</strong> OpenCV utiliza un marco óptico (X: derecha, Y: abajo, Z: hacia adelante), mientras que el simulador usa un marco estándar (X: adelante, Y: izquierda, Z: arriba). Se aplicaron rotaciones de -90º en Z y X para alinear ambos sistemas.
+	        </li>
+	        <li>
+	            <strong>Estimación incorrecta del yaw:</strong> Inicialmente, el cálculo con <code>arctan2</code> devolvía resultados inconsistentes debido a los ejes mal alineados. Tras corregir los marcos de referencia, el ángulo de orientación se estimó correctamente.
+	        </li>
+	        <li>
+	            <strong>Falsos positivos o detección múltiple de balizas:</strong> En ocasiones se detectaban varias balizas simultáneamente. Se optó por seleccionar la más cercana (mayor área proyectada) por ser la que proporciona menor error en <code>solvePnP</code>.
+	        </li>
+	    </ul>
+	
     </div>
 
     <!-- Contenido del séptimo post -->
