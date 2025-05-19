@@ -188,41 +188,42 @@
 	    </p>
     </div>
 
-
     <!-- Contenido del cuarto post -->
     <div id="post_Dia4_4" class="post-container" style="display: none;">
+	    <h2>Selección de la mejor baliza y visualización con colores</h2>
 	
-	<h2>Emparejamiento por correlación (búsqueda de homólogos)</h2>
-
-	<p>Una vez definida la línea epipolar en la imagen derecha, el siguiente paso es buscar el punto homólogo correspondiente al punto de la imagen izquierda. Esta tarea se realiza mediante correlación de ventanas y técnicas de comparación basadas en diferencias de intensidad.</p>
+	    <h3> ¿Por qué seleccionar una sola baliza?</h3>
+	    <p>
+	        Cuando varias AprilTags son visibles en la imagen, la estimación de la pose puede variar entre unas y otras debido a la perspectiva o la distancia. Por ello, se decidió elegir únicamente la más <strong>confiable</strong> en cada iteración, para mantener la consistencia.
+	    </p>
+	    <p>
+	        La selección se basa en el <strong>área del contorno</strong> detectado: cuanto mayor es, más cercana está la baliza y, por tanto, más precisa será su estimación.
+	    </p>
 	
-        <h3>Función <code>buscar_match_epipolar_Canny()</code></h3>
-
-	<p>Se diseñó una función que recorre la línea epipolar en la imagen derecha evaluando múltiples coordenadas posibles, comparando cada una con la región del punto original en la imagen izquierda.</p>
-
-        <ul>
-	        <li>Para cada valor de <code>x</code> a lo largo de la línea epipolar, se calcula el correspondiente <code>y</code> usando la ecuación de la recta <code>y = -(a·x + c)/b</code>.</li>
-	        <li>Se extrae una ventana centrada en <code>(x, y)</code> en la imagen derecha y se compara con una ventana de mismo tamaño centrada en el punto original de la imagen izquierda.</li>
-	        <li>La comparación se realiza usando el error <strong>SSD normalizado</strong> (Sum of Squared Differences), lo cual penaliza las diferencias de intensidad.</li>
-    	</ul> 
-
-	<p>Una vez recorrida toda la línea epipolar, se selecciona el punto con menor SSD como mejor candidato, siempre que esté por debajo de un umbral que garantiza una buena correspondencia.</p>
-
-	<h3>Filtro adicional por color</h3>
-    	<p>Para mejorar aún más la fiabilidad de los matches, se quiso implementar un filtro adicional que compara el color del píxel en la imagen izquierda con el color del píxel candidato en la derecha.</p>
-
-	<ul>
-		<li>Se calcula la distancia euclídea entre ambos colores (en espacio RGB).</li>
-	        <li>Si la diferencia es demasiado alta (por encima de un umbral establecido), se descarta el match aunque tenga un buen SSD.</li>
-	</ul>
-
-	<p>Este enfoque combinado de <strong>correlación espacial</strong> y <strong>consistencia de color</strong> hubiese podido mejorar significativamente la robustez del emparejamiento, reduciendo falsos positivos y contribuyendo a una nube de puntos 3D más precisa. Sin embargo en el modelo final, solo se implementó la correlación espacial.</p>
-
-	<p>A continuación se muestra un video del proceso de correlación en ambas imágenes:</p>
-
+	    <h3> Visualización mejorada</h3>
+	    <p>
+	        Para ayudar en el desarrollo y depuración del sistema, se implementó una función para pintar las balizas detectadas en la imagen:
+	    </p>
+	    <ul>
+	        <li>Todas las balizas detectadas se pintan de <strong>verde</strong>.</li>
+	        <li>La baliza seleccionada como la mejor se pinta de <strong>azul</strong>.</li>
+	    </ul>
 	
-
+	    <p>
+	        Esto permitió verificar visualmente qué baliza estaba siendo usada para estimar la pose, y ayudó a ajustar correctamente el criterio de selección.
+	    </p>
+	
+	    <div style="text-align: center; margin-top: 20px;">
+	        <img src="https://raw.githubusercontent.com/PaulaPenaGonzalez/Vision-Robotics_Blog/main/assets/images/balizas.png" 
+	             alt="Selección de la mejor baliza con resaltado azul" 
+	             style="width: 500px; height: auto; border-radius: 8px;">
+	    </div>
+	
+	    <p>
+	        Esta estrategia garantiza que siempre se utilice la baliza más cercana (y por tanto más precisa), al tiempo que se ofrece una visualización clara del sistema en acción.
+	    </p>
     </div>
+
 
     <!-- Contenido del quinto post -->
     <div id="post_Dia5_5" class="post-container" style="display: none;">
