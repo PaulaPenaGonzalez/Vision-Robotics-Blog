@@ -108,7 +108,7 @@
 	        <li><strong>T_tag_to_world:</strong> Transformación conocida desde el archivo YAML que define la posición de la baliza en el mundo.</li>
 	        <li><strong>T_cam_to_tag:</strong> Se calcula <code>T_tag_to_cam</code> con <code>solvePnP</code> a partir de las esquinas detectadas y realizando la inversa obtenemos <code>T_cam_to_tag</code>.</li>
 	        <li><strong>T_robot_to_cam:</strong> En el archivo .SDF, define la posición relativa de la cámara respecto al centro del robot. Se invierte para obtener el robot con respecto a la cámara. </li>
-		<li><strong>T_rot:</strong> Define la rotación de los ejes para pasar del sistema de referencia del simulador al marco óptico (Open CV). </li>
+		<li><strong>T_rot:</strong> Define la rotación de los ejes para pasar del sistema de referencia del simulador al marco óptico (OpenCV). </li>
 	    </ul>
 	
 	    <h3> Extracción de la pose del robot</h3>
@@ -126,7 +126,7 @@
 	    </p>
 	
 	    <div style="text-align: center; margin-top: 20px;">
-	        <img src="https://raw.githubusercontent.com/TU_USUARIO/TU_REPO/main/assets/images/transformaciones_robot_pose.png" 
+	        <img src="https://raw.githubusercontent.com/PaulaPenaGonzalez/Vision-Robotics-Blog/main/assets/images/transformaciones_robot_pose.png" 
 	             alt="Transformaciones para obtener la pose del robot" 
 	             style="width: 520px; height: auto; border-radius: 8px;">
 	    </div>
@@ -143,7 +143,7 @@
 	    </pre>
 	
 	    <p>
-	        Esta rotación se incorpora directamente y, de la misma manera, también de forma inversa, en la multiplicación final: idea y vuelta a coordenadas del marco óptico (Open CV).
+	        Esta rotación se incorpora directamente y, de la misma manera, también de forma inversa, en la multiplicación final: idea y vuelta a coordenadas del marco óptico (OpenCV).
 	    </p>
     </div>
 
