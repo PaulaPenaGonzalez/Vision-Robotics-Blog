@@ -3,31 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proyecto 1 - Detección de Bordes</title>
+    <title>Localización del robot con AprilTags</title>
     <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
     <header>
-        <h1> Reconstrucción 3D de una escena 2D </h1>
-        <p> Progreso y avances de este proyecto. </p>
+        <h1> Localización del robot utilizando AprilTags </h1>
+        <p>Estimación de la pose del robot a partir de visión artificial y odometría.</p>
     </header>
 
     <!-- Introducción antes de las publicaciones -->
     <div class="container">
-    	<p>
-        En este proyecto, se ha desarrollado un sistema de reconstrucción 3D a partir de imágenes estéreo. A través de técnicas clásicas de visión por computador, como la geometría epipolar, la correlación de ventanas y la triangulación de rayos, se genera una nube de puntos coloreada que representa la escena capturada por las cámaras. 
-    	</p>
-    	<p>
-        A continuación, puedes leer las publicaciones relacionadas con este proyecto, donde se detallan los avances, problemas encontrados y soluciones aplicadas. 
-	</p>
+        <p>
+        En este proyecto hemos implementado un sistema de localización de un robot móvil mediante el uso de balizas AprilTags y técnicas de visión por computador.
+        </p>
+        <p>
+        A partir de las imágenes capturadas por la cámara del robot, se detectan las balizas y se calcula la posición y orientación del robot con respecto al mundo aplicando transformaciones geométricas (roto-traslaciones) entre diferentes sistemas de referencia: cámara, baliza, robot y mundo.
+        </p>
+        <p>
+        Cuando el robot no es capaz de ver ninguna baliza, el sistema recurre a la odometría para estimar su nueva posición, sumando los pequeños desplazamientos detectados respecto a la última posición conocida.
+        </p>
+        <p>
+        Este enfoque híbrido permite mantener una localización continua y razonablemente precisa incluso en entornos parcialmente observables.
+        </p>
 
-	<!-- Imagen de la reconstrucción -->
-    	<div style="text-align: center; margin-top: 20px;">
-	        <img src="https://raw.githubusercontent.com/PaulaPenaGonzalez/Vision-Robotics-Blog/main/assets/images/proyecto2.jpg" 
-	             alt="Reconstrucción 3D a partir de bordes" 
-	             style="width: 600px; height: auto; border-radius: 8px;">
-    	</div>
+        <!-- Imagen destacada del proyecto -->
+        <div style="text-align: center; margin-top: 20px;">
+            <img src="https://raw.githubusercontent.com/PaulaPenaGonzalez/Vision-Robotics-Blog/main/assets/images/proyecto3.png" 
+                 alt="Localización del robot con AprilTags" 
+                 style="width: 600px; height: auto; border-radius: 8px;">
+        </div>
     </div>
+
 
     <div class="container">
         <h2>Publicaciones - Reconstrucción 3D</h2>
