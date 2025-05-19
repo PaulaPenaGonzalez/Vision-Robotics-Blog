@@ -42,44 +42,6 @@
 
     
 
-
-    <!-- Contenido del primer post -->
-    <div id="post_Dia1_1" class="post-container" style="display: none;">
-	    <h2>Objetivo del proyecto y detección de balizas AprilTags</h2>
-	    
-	    <h3> Objetivo principal</h3>
-	    <p>
-	        El objetivo de este proyecto es implementar un sistema de localización autónoma de un robot móvil en un entorno cerrado utilizando balizas AprilTags como referencias visuales. 
-	    </p>
-	    <p>
-	        Para lograrlo, se emplea una cámara montada sobre el robot y se calcula su posición y orientación (pose) a partir de la detección y análisis de las balizas. 
-	        Cuando las balizas no están visibles, se recurre a los datos de odometría para mantener una estimación continua.
-	    </p>
-	    
-	    <h3> Detección de AprilTags</h3>
-	    <p>
-	        Se utiliza la biblioteca <code>pyapriltags</code> para detectar las balizas en las imágenes capturadas por la cámara del robot. Esta herramienta proporciona las coordenadas de las esquinas de cada baliza y su identificador único.
-	    </p>
-	    <p>
-	        A partir de estas esquinas, se aplica el algoritmo <code>solvePnP</code> de OpenCV para estimar la pose relativa de la caámara con respecto a la baliza. Esta información, combinada con la pose conocida de la baliza en el mundo, permite calcular la pose del robot mediante una serie de roto-traslaciones.
-	    </p>
-	    
-	    <div style="text-align: center; margin-top: 20px;">
-	        <img src="https://raw.githubusercontent.com/PaulaPenaGonzalez/Vision-Robotics-Blog/main/assets/images/apriltags.png" 
-	             alt="Detección de AprilTags" 
-	             style="width: 500px; height: auto; border-radius: 8px;">
-	    </div>
-	
-	    <h3> Elección de la baliza más confiable</h3>
-	    <p>
-	        En cada imagen se pueden detectar múltiples balizas, pero no todas ofrecen la misma fiabilidad. 
-	        Para seleccionar la mejor, se calcula el área proyectada de cada baliza en la imagen, y se elige aquella con mayor área aparente, ya que es la más cercana y ofrece menor error en la estimación de la pose.
-	    </p>
-	    <p>
-	        Este criterio permite mejorar la precisión del sistema y evitar errores derivados de detecciones lejanas o parciales.
-	    </p>
-    </div>
-
     <!-- Contenido del primer post -->
     <div id="post_Dia1_1" class="post-container" style="display: none;">
 	<h2> Preparación inicial y lectura de imágenes </h2>
