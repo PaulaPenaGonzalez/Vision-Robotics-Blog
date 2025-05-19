@@ -268,25 +268,43 @@
 
     <!-- Contenido del séptimo post -->
     <div id="post_Dia7_7" class="post-container" style="display: none;">
-        <h2> Limpieza y refinamiento </h2>
-        <p>Una vez generada la nube de puntos 3D, el siguiente paso fundamental fue su depuración. La reconstrucción puede incluir puntos erróneos u outliers debido a emparejamientos incorrectos, ruido o geometrías mal trianguladas.</p>
-
-	<h3>Filtrado por distancia entre rayos</h3>
- 	<p>Durante la triangulación, se calculó la distancia entre los rayos de retroproyección de cada cámara. Si esta distancia era demasiado grande, se consideraba que los rayos no se cruzaban de forma fiable, y el punto 3D correspondiente se descartaba.</p>
-
-	<h3>Umbral sobre los parámetros de triangulación <code>t</code> y <code>s</code></h3>
-	<p> Otro criterio de validación consistió en comprobar que los parámetros <code>t</code> y <code>s</code> obtenidos durante la resolución del sistema de triangulación fueran positivos y estuvieran dentro de un rango aceptable.</p>
-	<p>Estos valores determinan la posición del punto a lo largo de los rayos, por lo que si son negativos o extremadamente grandes, significa que el punto reconstruido estaría fuera del campo visual de la escena. </p>
+	    <h2> Conclusión y Resultados Finales </h2>
 	
-	<p> Gracias a la incorporación de estos dos filtros, la nube de puntos final presenta una geometría mucho más coherente y limpia,facilitando su análisis visual y reduciendo significativamente los outliers.</p>
-
-	<p>A cotinuación se muestra un video con el resultado final de la reconstrucción 3D:</p>
+	    <p>
+	        Al finalizar el desarrollo del sistema de localización visual con AprilTags, se ha logrado un sistema robusto capaz de estimar la posición del robot en el entorno simulador, combinando información visual y odométrica.
+	    </p>
 	
-	<div style="text-align: center; margin: 30px 0;">
-	<iframe width="560" height="315" src="https://www.youtube.com/embed/ceEEqg4W2bo" frameborder="0" allowfullscreen></iframe>
-	</div>
-    
+	    <p>
+	        El sistema funciona de la siguiente forma:
+	        <ul>
+	            <li> Cuando se detecta una baliza AprilTag, se calcula la pose del robot mediante una cadena de transformaciones desde el marco de la baliza hasta el del robot.</li>
+	            <li> Cuando no hay detección, se emplea la odometría del simulador para mantener una estimación aproximada de la posición.</li>
+	        </ul>
+	    </p>
+	
+	    <h3>Valoración del rendimiento</h3>
+	    <ul>
+	        <li><strong>Precisión visual:</strong> Alta cuando hay detección.</li>
+	        <li><strong>Odometía:</strong> Introduce ruido progresivamente, pero útil a corto plazo.</li>
+	        <li><strong>Recuperación:</strong> Muy buena al volver a detectar una baliza.</li>
+	        <li><strong>Generalización:</strong> Compatible con simuladores y entornos reales con balizas conocidas.</li>
+	    </ul>
+	
+	    <h3>Vídeo demostrativo</h3>
+	    <div style="text-align: center; margin: 30px 0;">
+	        <iframe width="560" height="315" src="https://www.youtube.com/embed/iPVz_WGa9l0" frameborder="0" allowfullscreen></iframe>
+	    </div>
+	
+	    <p>
+	        En el vídeo se puede ver cómo el robot inicia con detección visual, pierde contacto con las balizas (pasando a odometría) y finalmente recupera su posición gracias a una nueva detección.
+	    </p>
+	
+	    <h3>Posibles mejoras</h3>
+	    <p>
+	        Existe un campo de mejora en el cálculo de odometría para reducir el error acumulado cuando no se encuentran balizas.
+	    </p>
     </div>
+
 
     <script>
     function mostrarPost(categoria, num) {
