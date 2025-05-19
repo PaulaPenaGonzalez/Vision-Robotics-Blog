@@ -227,32 +227,23 @@
 
     <!-- Contenido del quinto post -->
     <div id="post_Dia5_5" class="post-container" style="display: none;">
+	    <h2> Movimiento del Robot y Estrategia de Exploración </h2>
 	
-	<h2>Triangulación del punto 3D</h2>
-	    
-	<p>Una vez identificada una pareja de píxeles correspondientes (uno en cada imagen), el siguiente paso es estimar la posición 3D del punto de la escena que proyecta en ambas cámaras. Para ello, utilizamos una técnica basada en la geometría de retroproyección.</p>
-
-	<h3>Rayos de retroproyección</h3>
-  	<p>Cada píxel, al ser retroproyectado mediante la matriz de calibración y la posición de la cámara, genera un rayo que apunta desde el centro óptico hacia la escena. Ambos rayos (izquierdo y derecho) deberían, idealmente, cruzarse en el espacio tridimensional.</p>
-
-	<h3>Implementación de <code>triangulate_midpoint()</code></h3>
-	<ul>
-	    <li>Se planteó y resolvió un sistema lineal para encontrar los puntos más cercanos entre ambos rayos.</li>
-	    <li>Estos puntos se denominan <code>P1</code> y <code>P2</code>, uno sobre cada rayo.</li>
-	    <li>El punto 3D estimado es el punto medio entre ambos: <strong>el centro del segmento mínimo entre rayos</strong>.</li>
-	</ul>
-
-	<div style="text-align: center; margin: 30px 0;">
-	<iframe width="560" height="315" src="https://www.youtube.com/embed/Fd0WqJa0TB8" frameborder="0" allowfullscreen></iframe>
-	</div>
-
-	<h3>Filtrado de puntos no fiables (outliers)</h3>
-	<ul>
-	    <li>Si la distancia entre los rayos (<code>‖P1 - P2‖</code>) es demasiado alta, el punto se descarta por inconsistencia geométrica.</li>
-	    <li>También se descartan las soluciones en las que los parámetros del sistema lineal (<code>t</code> o <code>s</code>) resultan negativos. Esto indica que el punto estaría "detrás" de alguna de las cámaras, lo cual no tiene sentido físico.</li>
-	</ul>
-
-	<p>Con esta función, se garantiza que cada punto de la nube reconstruida tiene una base sólida desde el punto de vista geométrico y espacial. Solo se conservan aquellos puntos que están bien triangulados y situados en la región visual válida de ambas cámaras.</p>
+	    <p>
+	        En esta etapa del proyecto, se integró el movimiento autónomo del robot para explorar el entorno en busca de balizas AprilTag. Esto fue fundamental para poder estimar su posición de forma continua, incluso cuando no se detectaban balizas durante algunos instantes.
+	    </p>
+	
+	    <p>
+	        El movimiento se controló utilizando los comandos <code>HAL.setV()</code> para la velocidad lineal y <code>HAL.setW()</code> para la velocidad angular. De esta forma, el robot pudo avanzar en línea recta mientras realizaba un giro constante, permitiéndole recorrer el espacio de forma helicoidal.
+	    </p>
+	
+	    <p>
+	        Además, para evitar que el robot quedase atascado o siguiera un patrón demasiado repetitivo, se incorporó un pequeño giro aleatorio usando la librería <code>random</code>. Esto hacía que el robot variara ligeramente su dirección de forma impredecible, maximizando así la probabilidad de detectar nuevas balizas.
+	    </p>
+	
+	    <p>
+	        Este comportamiento activo es especialmente útil en entornos cerrados o con obstáculos, donde las balizas pueden estar parcialmente ocultas o fuera del campo de visión en momentos puntuales.
+	    </p>
 	
     </div>
 
