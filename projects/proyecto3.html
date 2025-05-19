@@ -47,37 +47,43 @@
 	<button onclick="mostrarPost('Dia7', 7)"> Séptimo post</button>
     </div>
 
+
+
     <!-- Contenido del primer post -->
     <div id="post_Dia1_1" class="post-container" style="display: none;">
-	<h2> Preparación inicial y lectura de imágenes </h2>
-	<h3>Objetivo:</h3>
-    	<p> Cargar y preprocesar las imágenes estéreo capturadas por las dos cámaras calibradas (izquierda y derecha). Fundamental para extraer la información visual relevante que servirá como base para todo el sistema de reconstrucción 3D.</p>
-
-    	<h3> Captura de Imágenes</h3>
-
-    	<p>Las imágenes izquierda y derecha fueron obtenidas desde el simulador Unibotics. Estas imágenes corresponden a la misma escena vista desde dos ángulos ligeramente diferentes, lo que permite generar percepción de profundidad gracias al paralaje.</p>
-
-	<div style="text-align: center; margin-top: 20px;">
-	        <img src="https://raw.githubusercontent.com/PaulaPenaGonzalez/Vision-Robotics-Blog/main/assets/images/ImagenLImagenR.jpg" 
-	             alt="Reconstrucción 3D a partir de bordes" 
-	             style="width: 350px; height: auto; border-radius: 8px;">
-    	</div>
+	    <h2>Objetivo del proyecto y detección de balizas AprilTags</h2>
 	    
-    	<h3> Conversión a Escala de Grises</h3>
-    	<p> Para simplificar el análisis visual y reducir la carga computacional, se realizó una conversión de las imágenes a escala de grises. Esto permite centrarse en la estructura de la escena sin que el color interfiera en las operaciones iniciales como la detección de bordes.</p>
-
-    	<h3>Detección de Bordes</h3>
-	<p>La etapa clave en este punto fue aplicar un detector de bordes, específicamente el método de Canny. Esta técnica resalta los contornos y líneas más relevantes de la escena, permitiendo identificar los puntos característicos que luego se utilizarán para hallar correspondencias entre ambas imágenes. Se hizo un ajuste manual de los parámetros del detector para encontrar un equilibrio entre sensibilidad (captar todos los bordes importantes) y robustez (evitar bordes producidos por ruido o detalles irrelevantes).</p>
-
-	<div style="text-align: center; margin-top: 20px;">
-	        <img src="https://raw.githubusercontent.com/PaulaPenaGonzalez/Vision-Robotics-Blog/main/assets/images/Bordes.jpg" 
-	             alt="Reconstrucción 3D a partir de bordes" 
-	             style="width: 350px; height: auto; border-radius: 8px;">
-    	</div>
-
-    	<h3>Visualización y Verificación</h3>
-    	<p>Una vez obtenidas las máscaras de bordes, se visualizaron ambas imágenes con sus respectivos contornos resaltados. Esto ayudó a comprobar que los parámetros elegidos proporcionaban una buena base para continuar con la reconstrucción.</p>
-    
+	    <h3> Objetivo principal</h3>
+	    <p>
+	        El objetivo de este proyecto es implementar un sistema de localización autónoma de un robot móvil en un entorno cerrado utilizando balizas AprilTags como referencias visuales. 
+	    </p>
+	    <p>
+	        Para lograrlo, se emplea una cámara montada sobre el robot y se calcula su posición y orientación (pose) a partir de la detección y análisis de las balizas. 
+	        Cuando las balizas no están visibles, se recurre a los datos de odometría para mantener una estimación continua.
+	    </p>
+	    
+	    <h3> Detección de AprilTags</h3>
+	    <p>
+	        Se utiliza la biblioteca <code>pyapriltags</code> para detectar las balizas en las imágenes capturadas por la cámara del robot. Esta herramienta proporciona las coordenadas de las esquinas de cada baliza y su identificador único.
+	    </p>
+	    <p>
+	        A partir de estas esquinas, se aplica el algoritmo <code>solvePnP</code> de OpenCV para estimar la pose relativa de la caámara con respecto a la baliza. Esta información, combinada con la pose conocida de la baliza en el mundo, permite calcular la pose del robot mediante una serie de roto-traslaciones.
+	    </p>
+	    
+	    <div style="text-align: center; margin-top: 20px;">
+	        <img src="https://raw.githubusercontent.com/PaulaPenaGonzalez/Vision-Robotics-Blog/main/assets/images/apriltags.png" 
+	             alt="Detección de AprilTags" 
+	             style="width: 500px; height: auto; border-radius: 8px;">
+	    </div>
+	
+	    <h3> Elección de la baliza más confiable</h3>
+	    <p>
+	        En cada imagen se pueden detectar múltiples balizas, pero no todas ofrecen la misma fiabilidad. 
+	        Para seleccionar la mejor, se calcula el área proyectada de cada baliza en la imagen, y se elige aquella con mayor área aparente, ya que es la más cercana y ofrece menor error en la estimación de la pose.
+	    </p>
+	    <p>
+	        Este criterio permite mejorar la precisión del sistema y evitar errores derivados de detecciones lejanas o parciales.
+	    </p>
     </div>
 
     <!--Contenido del segundo post -->
