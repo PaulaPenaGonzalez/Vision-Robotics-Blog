@@ -188,45 +188,6 @@
 	    </p>
     </div>
 
-	
-    <!-- Contenido del tercer post -->
-    <div id="post_Dia3_3" class="post-container" style="display: none;">
-	<h2> Detección y selección de puntos característicos </h2>
-        
-	<p>Uno de los pilares de la reconstrucción 3D a partir de visión estéreo es la <strong>geometría epipolar</strong>. En este post abordamos cómo obtener la línea epipolar en la imagen derecha a partir de un punto característico detectado en la imagen izquierda.</p>
-
-	<div style="text-align: center; margin-top: 20px;">
-	        <img src="https://raw.githubusercontent.com/PaulaPenaGonzalez/Vision-Robotics-Blog/main/assets/images/TRIANGULACION.png" 
-	             alt="Reconstrucción 3D a partir de bordes" 
-	             style="width: 350px; height: auto; border-radius: 8px;">
-    	</div>
-	
-	<h3> Retroproyección del punto izquierdo </h3>
-
-	<p>Cada punto característico extraído de la imagen izquierda es transformado a coordenadas del mundo real mediante retroproyección. Para ello, se utiliza la matriz de proyección inversa de la cámara izquierda, proporcionada por la herramienta <code>HAL.backproject</code>.</p>
-        
-        <h3>Vector director del rayo</h3>
-        <p>Con el punto 3D obtenido y la posición de la cámara izquierda, se calcula el vector director del rayo de retroproyección:</p>
-    	<p><code>u = punto_3d - centro_cámara</code></p>
-    	<p>Este vector se normaliza para definir una dirección en el espacio desde el centro de la cámara.</p>
-        
-        <h3>Proyección del rayo en la imagen derecha</h3>
-
-	<p>Se seleccionan dos puntos arbitrarios sobre el rayo en 3D (por ejemplo, a cierta distancia a lo largo del vector director) y se proyectan sobre la imagen derecha utilizando la función <code>HAL.project</code>.</p>
-	<p>Posteriormente, se convierten estas coordenadas proyectadas de espacio óptico a espacio gráfico con <code>HAL.opticalToGrafic</code>.</p>
-	
-	<h3> Cálculo de la línea epipolar</h3>
-	<p>Una vez tenemos los dos puntos proyectados en la imagen derecha, la línea epipolar se calcula como la recta que pasa por ambos:</p>
-	<p><code>line = np.cross(p1_2d, p2_2d)</code></p>
-	<p>Esto nos da los coeficientes <code>(a, b, c)</code> de la recta epipolar en la forma <code>ax + by + c = 0</code>, que se dibujará sobre la imagen derecha para restringir la búsqueda de homólogos a esa línea.</p>
-
-	<div style="text-align: center; margin-top: 20px;">
-	        <img src="https://raw.githubusercontent.com/PaulaPenaGonzalez/Vision-Robotics-Blog/main/assets/images/RectaEpipolar.jpg" 
-	             alt="Reconstrucción 3D a partir de bordes" 
-	             style="width: 300px; height: auto; border-radius: 8px;">
-    	</div>
-	
-    </div>
 
     <!-- Contenido del cuarto post -->
     <div id="post_Dia4_4" class="post-container" style="display: none;">
