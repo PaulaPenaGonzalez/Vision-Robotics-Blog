@@ -9,7 +9,7 @@ Here you will find projects, experiments and developments related to computer vi
 
 📖 I document the full development process, technical decisions and results in my blog:
 
-👉 **[Visit the Project Blog](https://TU_USUARIO.github.io/)**
+👉 **[Visit the Project Blog]([https://TU_USUARIO.github.io/](https://paulapenagonzalez.github.io/Vision-Robotics-Blog/))**
 
 ---
 
@@ -39,3 +39,4 @@ GitHub: [@PaulaPenaGonzalez](https://github.com/PaulaPenaGonzalez)
 ---
 
 ⭐ If you find this repository useful, feel free to star it!
+
